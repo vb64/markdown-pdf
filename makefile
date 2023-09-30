@@ -10,12 +10,12 @@ PTEST = ./venv/bin/pytest
 COVERAGE = ./venv/bin/coverage
 endif
 
-SOURCE = source
+SOURCE = markdown_pdf
 TESTS = tests
 
 FLAKE8 = $(PYTHON) -m flake8
 PYLINT = $(PYTHON) -m pylint
-PYTEST = $(PTEST)
+PYTEST = $(PTEST) --cov=$(SOURCE) --cov-report term:skip-covered
 PIP = $(PYTHON) -m pip install
 
 all: tests

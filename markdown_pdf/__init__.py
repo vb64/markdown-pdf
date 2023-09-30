@@ -1,4 +1,5 @@
 """Markdown to pdf converter baset on markdown_it and fitz."""
+import io
 from markdown_it import MarkdownIt
 import fitz
 
@@ -45,12 +46,12 @@ class MarkdownPdf:
 
     @staticmethod
     def recorder(elpos):
-        """Callback function invoked during story.place() for making a TOC."""
+        """Call function invoked during story.place() for making a TOC."""
         if not elpos.open_close & 1:  # only consider "open" items
             return
         if not elpos.toc:
             return
-    
+
         if 0 < elpos.heading <= elpos.pdfile.toc_level:  # this is a header (h1 - h6)
             elpos.pdfile.toc.append((
                 elpos.heading,
