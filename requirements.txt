@@ -1,0 +1,2 @@
+PyMuPDF==1.23.3
+markdown-it-py==3.0.0

@@ -1,0 +1,14 @@
+__pycache__
+migrations
+static/*
+*.pyc
+*.mo
+*.log
+*.sqlite3
+.coverage
+htmlcov/*
+venv/*
+venv.*
+build/
+dist/
+*.egg-info/

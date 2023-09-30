@@ -1,0 +1,2 @@
+recursive-include markdown_pdf *
+global-exclude *.py[cod]

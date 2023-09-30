@@ -1,0 +1,6 @@
+[run]
+branch = True
+source = markdown_pdf/
+
+[html]
+directory = htmlcov

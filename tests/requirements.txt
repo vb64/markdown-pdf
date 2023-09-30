@@ -1,0 +1,6 @@
+flake8
+pylint
+pydocstyle
+pytest
+pytest-cov
+codacy-coverage
