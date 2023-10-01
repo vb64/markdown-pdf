@@ -20,7 +20,7 @@ pdf.add_section(Section("# Title\n", toc=False))
 pdf.add_section(Section("# Head1\n\nbody\n"))
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
 
-pdf.save(self.build("with_toc.pdf"))
+pdf.save("with_toc.pdf")
 ```
 
 ![Pdf](img/with_toc.png)
