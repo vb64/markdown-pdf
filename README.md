@@ -1,6 +1,8 @@
 # markdown-pdf
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/markdown-pdf/pep257.yml?label=Pep257&style=plastic&branch=main)](https://github.com/vb64/markdown-pdf/actions?query=workflow%3Apep257)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/vb64/markdown-pdf/py3.yml?label=Python%203.8-3.11&style=plastic&branch=main)](https://github.com/vb64/markdown-pdf/actions?query=workflow%3Apy3)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/27b53043bff34f07bfb79ee1672b7ba0)](https://app.codacy.com/gh/vb64/markdown-pdf/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/27b53043bff34f07bfb79ee1672b7ba0)](https://app.codacy.com/gh/vb64/markdown-pdf/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 This is a small Python class that links two libraries: [markdown-it-py](https://github.com/executablebooks/markdown-it-py) and [PyMuPDF](https://github.com/pymupdf/PyMuPDF).
 This class will create a PDF file from your set of `markdown` files.
