@@ -1,4 +1,4 @@
-name: geomap-pep257
+name: pep257
 
 on:
   push:
