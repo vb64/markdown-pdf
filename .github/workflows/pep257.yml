@@ -1,0 +1,37 @@
+name: geomap-pep257
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  pep257:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install pydocstyle
+
+    - name: source
+      run: |
+        python -m pydocstyle markdown_pdf
+
+    - name: tests
+      run: |
+        python -m pydocstyle --match='.*\.py' tests/test
