@@ -11,16 +11,37 @@ pip install markdown-pdf
 
 ## Использование
 
+Создаем pdf с оглавлением (bookmarks) из заголовков до 2 уровня.
+
 ```python
-from markdown_pdf import Section, MarkdownPdf
+from markdown_pdf import MarkdownPdf
 
 pdf = MarkdownPdf(toc_level=2)
+```
+
+Добавляем в pdf три секции markdown.
+Каждая секция начинается с новой страницы.
+Заголовки из первой секции не включаем в оглавление.
+
+```python
+from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
 pdf.add_section(Section("# Head1\n\nbody\n"))
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
+```
 
-pdf.save("with_toc.pdf")
+Устанавливаем свойства pdf документа.
+
+```python
+pdf.meta["title"] = "Руководство пользователя"
+pdf.meta["author"] = "Виталий Богомолов"
+```
+
+Сохраняем в файл.
+
+```python
+pdf.save("guide.pdf")
 ```
 
 ![Pdf](img/with_toc.png)

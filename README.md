@@ -15,16 +15,37 @@ pip install markdown-pdf
 
 ## Usage
 
+Create a pdf with TOC (bookmarks) from headings up to level 2.
+
 ```python
-from markdown_pdf import Section, MarkdownPdf
+from markdown_pdf import MarkdownPdf
 
 pdf = MarkdownPdf(toc_level=2)
+```
+
+Add three sections of markdown to the pdf.
+Each section starts on a new page.
+Headings from the first section are not included in the TOC.
+
+```python
+from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
 pdf.add_section(Section("# Head1\n\nbody\n"))
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
+```
 
-pdf.save("with_toc.pdf")
+Set the properties of the pdf document.
+
+```python
+pdf.meta["title"] = "User Guide"
+pdf.meta["author"] = "Vitaly Bogomolov"
+```
+
+Save to file.
+
+```python
+pdf.save("guide.pdf")
 ```
 
 ![Pdf](img/with_toc.png)
