@@ -22,12 +22,13 @@ pdf = MarkdownPdf(toc_level=2)
 Добавляем в pdf три секции markdown.
 Каждая секция начинается с новой страницы.
 Заголовки из первой секции не включаем в оглавление.
+Заголовок второй секции центрируется при помощи CSS.
 
 ```python
 from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
-pdf.add_section(Section("# Head1\n\nbody\n"))
+pdf.add_section(Section("# Head1\n\nbody\n"), user_css="h1 {text-align:center;}")
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
 ```
 

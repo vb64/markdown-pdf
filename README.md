@@ -26,12 +26,13 @@ pdf = MarkdownPdf(toc_level=2)
 Add three sections of markdown to the pdf.
 Each section starts on a new page.
 Headings from the first section are not included in the TOC.
+The second section header is centered using CSS.
 
 ```python
 from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
-pdf.add_section(Section("# Head1\n\nbody\n"))
+pdf.add_section(Section("# Head1\n\nbody\n"), user_css="h1 {text-align:center;}")
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
 ```
 
