@@ -60,11 +60,11 @@ class MarkdownPdf:
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
-    def add_section(self, section):
+    def add_section(self, section, user_css=None):
         """Add markdown section to pdf."""
         rect = fitz.paper_rect(section.paper_size)
         where = rect + section.borders
-        story = fitz.Story(html=self.m_d.render(section.text), archive=section.root)
+        story = fitz.Story(html=self.m_d.render(section.text), archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
             self.page += 1
