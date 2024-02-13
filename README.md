@@ -60,10 +60,7 @@ The next `Section` data starts on a new page.
 
 The `Section` class can set the following attributes.
 
-- toc: whether to include the headers `<h1>` - `<h6>` of this section
- in the TOC. Default is True.
-- root: the name of the root directory from which the image file paths
- starts in markdown. Default ".".
-- paper_size: name of paper size,
- [as described here](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). Default "A4".
+- toc: whether to include the headers `<h1>` - `<h6>` of this section in the TOC. Default is True.
+- root: the name of the root directory from which the image file paths starts in markdown. Default ".".
+- paper_size: name of paper size, [as described here](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). Default "A4".
 - borders: size of borders. Default (36, 36, -36, -36).
