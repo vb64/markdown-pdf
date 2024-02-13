@@ -1,6 +1,8 @@
 # markdown-pdf
 
-Это маленький класс Python, связывающий две библиотеки: [markdown-it-py](https://github.com/executablebooks/markdown-it-py) и [PyMuPDF](https://github.com/pymupdf/PyMuPDF).
+Это маленький класс Python, связывающий две библиотеки:
+[markdown-it-py](https://github.com/executablebooks/markdown-it-py) и
+[PyMuPDF](https://github.com/pymupdf/PyMuPDF).
 Он позволит создать PDF файл из вашего набора файлов markdown.
 
 ## Установка
@@ -52,7 +54,7 @@ pdf.save("guide.pdf")
 
 У класса `Section` можно задавать следующие атрибуты.
 
--   toc: нужно ли включать заголовки `<h1>` - `<h6>` этой секции в TOC. По умолчанию True.
--   root: имя корневого каталога, от которого начинаются пути файлов картинок в markdown. По умолчанию ".".
--   paper_size: название размера бумаги, [как описано здесь](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). По умолчанию "A4".
--   borders: размер полей. По умолчанию (36, 36, -36, -36).
+- toc: нужно ли включать заголовки `<h1>` - `<h6>` этой секции в TOC. По умолчанию True.
+- root: имя корневого каталога, от которого начинаются пути файлов картинок в markdown. По умолчанию ".".
+- paper_size: название размера бумаги, [как описано здесь](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). По умолчанию "A4".
+- borders: размер полей. По умолчанию (36, 36, -36, -36).
