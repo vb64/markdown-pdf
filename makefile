@@ -39,6 +39,10 @@ tests: flake8 pep257 lint
 	$(PYTEST) --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
+example:
+	$(PYTHON) makepdf.py README.md examples/markdown_pdf.pdf
+	$(PYTHON) makepdf.py README_ru.md examples/markdown_pdf_ru.pdf
+
 package:
 	$(PYTHON) -m build -n
 

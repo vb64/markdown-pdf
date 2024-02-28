@@ -15,7 +15,7 @@ When creating a PDF file you can:
 - Create a TableOfContents (bookmarks) from markdown headings
 - Tune the necessary elements using your CSS code
 
-The module is implemented as wrapper for two wonderful libraries.
+The module utilizes the functions of two great libraries.
 
 - [markdown-it-py](https://github.com/executablebooks/markdown-it-py) to convert `markdown` to `html`.
 - [PyMuPDF](https://github.com/pymupdf/PyMuPDF) to convert `html` to `pdf`.
@@ -91,3 +91,8 @@ The following document properties are available for assignment (dictionary `Mark
 - `author`: ""
 - `subject`: ""
 - `keywords`: ""
+
+## Example
+
+As an example, you can download the [pdf file](examples/markdown_pdf.pdf) created from this md file.
+This [Python script](makepdf.py) was used to create the PDF file.
