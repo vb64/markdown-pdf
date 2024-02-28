@@ -84,3 +84,8 @@ pdf.save("guide.pdf")
 - `author`: ""
 - `subject`: ""
 - `keywords`: ""
+
+## Пример
+
+В качестве примера вы можете загрузить созданный из этого md файла [pdf файл](examples/markdown_pdf_ru.pdf).
+Для создания pdf файла использовался [этот скрипт](makepdf.py) Python.

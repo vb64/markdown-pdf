@@ -91,3 +91,8 @@ The following document properties are available for assignment (dictionary `Mark
 - `author`: ""
 - `subject`: ""
 - `keywords`: ""
+
+## Example
+
+As an example, you can download the [pdf file](examples/markdown_pdf.pdf) created from this md file.
+This [Python script](makepdf.py) was used to create the PDF file.
