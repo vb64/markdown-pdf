@@ -1,7 +1,5 @@
 # markdown-pdf
 
-[На английском](README.md)
-
 Бесплатный, с открытым исходным кодом Python модуль `markdown-pdf` позволит создать PDF файл из вашего контента в формате `markdown`.
 
 При создании PDF файла вы можете:
@@ -43,7 +41,7 @@ from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
 pdf.add_section(
-  Section("# Head1\n\n![python](img/python.png)\nbody\n"),
+  Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
   user_css="h1 {text-align:center;}"
 )
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
@@ -63,6 +61,8 @@ pdf.save("guide.pdf")
 ```
 
 ![Pdf](img/with_toc.png)
+
+## Настройки и опции
 
 Класс `Section` задает порцию данных `markdown`, которые обрабатываются по единым правилам.
 Данные следующего `Section` начинаются с новой страницы.
