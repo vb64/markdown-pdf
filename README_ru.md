@@ -10,7 +10,7 @@
 - Создавать оглавление (bookmarks) из заголовков markdown
 - Оформлять нужные элементы при помощи вашего CSS кода
 
-Модуль реализован как надстройка над двумя замечательными библиотеками.
+Модуль использует функции двух замечательных библиотек.
 
 - [markdown-it-py](https://github.com/executablebooks/markdown-it-py) для преобразования `markdown` в `html`.
 - [PyMuPDF](https://github.com/pymupdf/PyMuPDF) для преобразования `html` в `pdf`.
