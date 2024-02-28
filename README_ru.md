@@ -36,13 +36,16 @@ pdf = MarkdownPdf(toc_level=2)
 Добавляем в pdf три секции markdown.
 Каждая секция начинается с новой страницы.
 Заголовки из первой секции не включаем в оглавление.
-Заголовок второй секции центрируется при помощи CSS.
+Заголовок второй секции центрируется при помощи CSS и на страницу встраивается изображение из файла `img/python.png`.
 
 ```python
 from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
-pdf.add_section(Section("# Head1\n\nbody\n"), user_css="h1 {text-align:center;}")
+pdf.add_section(
+  Section("# Head1\n\n![python](img/python.png)\nbody\n"),
+  user_css="h1 {text-align:center;}"
+)
 pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
 ```
 
@@ -71,7 +74,7 @@ pdf.save("guide.pdf")
 - paper_size: название размера бумаги, [как описано здесь](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). По умолчанию "A4".
 - borders: размер полей. По умолчанию (36, 36, -36, -36).
 
-Для присвоения доступны следующие свойства документа с указанными значениями по умолчанию.
+Для присвоения доступны следующие свойства документа (словарь `MarkdownPdf.meta`) с указанными значениями по умолчанию.
 
 - `creationDate`: текущая дата
 - `modDate`: текущая дата
