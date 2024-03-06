@@ -1,4 +1,4 @@
-"""Markdown to pdf converter baset on markdown_it and fitz."""
+"""Markdown to pdf converter based on markdown_it and fitz."""
 import io
 from markdown_it import MarkdownIt
 import fitz
