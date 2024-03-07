@@ -14,6 +14,7 @@ When creating a PDF file you can:
 - Break text into pages in the desired order
 - Create a TableOfContents (bookmarks) from markdown headings
 - Tune the necessary elements using your CSS code
+- Use different page sizes within single pdf
 
 The module utilizes the functions of two great libraries.
 
