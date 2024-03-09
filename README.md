@@ -37,21 +37,29 @@ from markdown_pdf import MarkdownPdf
 pdf = MarkdownPdf(toc_level=2)
 ```
 
-Add three sections of markdown to the pdf.
-Each section starts on a new page.
-Headings from the first section are not included in the TOC.
-The second section header is centered using CSS
-and the image from the file `img/python.png` is embedded on the PDF page.
+Add the first section to the pdf. The title is not included in the table of contents.
 
 ```python
 from markdown_pdf import Section
 
 pdf.add_section(Section("# Title\n", toc=False))
+```
+
+Add a second section. In the pdf file it starts on a new page.
+The title is centered using CSS, included in the table of contents of the pdf file, and an image from the file `img/python.png` is embedded on the page.
+
+```python
 pdf.add_section(
   Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
   user_css="h1 {text-align:center;}"
 )
-pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
+```
+
+Add a third section. Two headings of different levels from this section are included in the TOC of the pdf file.
+The section has landscape orientation of A4 pages.
+
+```python
+pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
 ```
 
 Set the properties of the pdf document.
