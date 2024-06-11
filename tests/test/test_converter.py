@@ -35,15 +35,12 @@ class TestConverter(TestBase):
         # https://github.com/executablebooks/markdown-it-py?tab=readme-ov-file#python-api-usage
         from markdown_it import MarkdownIt
 
-        md = (
-          MarkdownIt('commonmark', {'breaks': True, 'html': True})
-          .enable('table')
-        )
-
+        md = MarkdownIt('commonmark').enable('table')
         text = ("""
 |a | b|
 |- | -|
 |1 | 2|
 
 """)
-        assert '<table>' in md.render(text)
+        html_text = md.render(text)
+        assert '<table>' in html_text
