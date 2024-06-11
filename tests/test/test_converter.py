@@ -40,7 +40,6 @@ class TestConverter(TestBase):
 
     def test_table(self):
         """Convert md table."""
-
         # https://github.com/executablebooks/markdown-it-py?tab=readme-ov-file#python-api-usage
         from markdown_it import MarkdownIt
         from markdown_pdf import Section, MarkdownPdf
