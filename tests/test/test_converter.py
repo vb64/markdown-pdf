@@ -4,6 +4,14 @@ make test T=test_converter.py
 """
 from . import TestBase
 
+TABLE_TEXT = """# Section with Table
+
+|TableHeader1|TableHeader2|
+|--|--|
+|Text1|Text2|
+|ListCell|<ul><li>FirstBullet</li><li>SecondBullet</li></ul>|
+"""
+
 
 class TestConverter(TestBase):
     """Converter markdown_pdf."""
@@ -19,6 +27,7 @@ class TestConverter(TestBase):
           user_css="h1 {text-align:center;}"
         )
         pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
+        pdf.add_section(Section(TABLE_TEXT))
         pdf.save(self.build("with_toc.pdf"))
 
     def test_no_toc(self):
@@ -28,3 +37,17 @@ class TestConverter(TestBase):
         pdf = MarkdownPdf(toc_level=0)
         pdf.add_section(Section("# Title\n"))
         pdf.save(self.build("no_toc.pdf"))
+
+    def test_table(self):
+        """Convert md table."""
+        # https://github.com/executablebooks/markdown-it-py?tab=readme-ov-file#python-api-usage
+        from markdown_it import MarkdownIt
+        from markdown_pdf import Section, MarkdownPdf
+
+        md = MarkdownIt('commonmark').enable('table')
+        html_text = md.render(TABLE_TEXT)
+        assert '<table>' in html_text
+
+        pdf = MarkdownPdf(toc_level=0)
+        pdf.add_section(Section(TABLE_TEXT))
+        pdf.save(self.build("table.pdf"))
