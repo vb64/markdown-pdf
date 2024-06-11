@@ -38,10 +38,12 @@ class TestConverter(TestBase):
 
         md = MarkdownIt('commonmark').enable('table')
         text = ("""
-|a | b|
-|- | -|
-|1 | 2|
+# Section with Table
 
+|TableHeader1|TableHeader2|
+|--|--|
+|Text1|Text2|
+|ListCell|<ul><li>FirstBullet</li><li>SecondBullet</li></ul>|
 """)
         html_text = md.render(text)
         assert '<table>' in html_text

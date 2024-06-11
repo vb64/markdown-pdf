@@ -16,6 +16,7 @@ When creating a PDF file you can:
 - Create a TableOfContents (bookmarks) from markdown headings
 - Tune the necessary elements using your CSS code
 - Use different page sizes within single pdf
+- Create tables in `markdown`
 
 The module utilizes the functions of two great libraries.
 
@@ -61,6 +62,21 @@ The section has landscape orientation of A4 pages.
 
 ```python
 pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
+```
+
+Add a fourth section with a table.
+
+```python
+
+text = """# Section with Table
+
+|TableHeader1|TableHeader2|
+|--|--|
+|Text1|Text2|
+|ListCell|<ul><li>FirstBullet</li><li>SecondBullet</li></ul>|
+"""
+
+pdf.add_section(Section(text))
 ```
 
 Set the properties of the pdf document.

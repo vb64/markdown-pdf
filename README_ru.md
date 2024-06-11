@@ -10,6 +10,7 @@
 - Создавать оглавление (bookmarks) из заголовков markdown
 - Оформлять нужные элементы при помощи вашего CSS кода
 - Использовать разные размеры страниц внутри одного pdf
+- Создавать таблицы в `markdown`
 
 Модуль использует функции двух замечательных библиотек.
 
@@ -55,6 +56,21 @@ pdf.add_section(
 
 ```python
 pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
+```
+
+Добавляем четвертую секцию с таблицей.
+
+```python
+
+text = """# Section with Table
+
+|TableHeader1|TableHeader2|
+|--|--|
+|Text1|Text2|
+|ListCell|<ul><li>FirstBullet</li><li>SecondBullet</li></ul>|
+"""
+
+pdf.add_section(Section(text))
 ```
 
 Устанавливаем свойства pdf документа.
