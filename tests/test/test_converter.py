@@ -34,31 +34,16 @@ class TestConverter(TestBase):
 
         # https://github.com/executablebooks/markdown-it-py?tab=readme-ov-file#python-api-usage
         from markdown_it import MarkdownIt
-        from mdit_py_plugins.front_matter import front_matter_plugin
-        from mdit_py_plugins.footnote import footnote_plugin
-        # from pathlib import Path
 
         md = (
           MarkdownIt('commonmark', {'breaks': True, 'html': True})
-          .use(front_matter_plugin)
-          .use(footnote_plugin)
           .enable('table')
         )
 
         text = ("""
----
-a: 1
----
+|a | b|
+|- | -|
+|1 | 2|
 
-a | b
-- | -
-1 | 2
-
-A footnote [^1]
-
-[^1]: some details
 """)
-        html_text = md.render(text)
-        print("\n")
-        print(html_text)
-        # Path(self.build("table.html")).write_text(html_text)
+        assert '<table>' in md.render(text)
