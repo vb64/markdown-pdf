@@ -34,6 +34,7 @@ class TestConverter(TestBase):
 
         # https://github.com/executablebooks/markdown-it-py?tab=readme-ov-file#python-api-usage
         from markdown_it import MarkdownIt
+        from markdown_pdf import Section, MarkdownPdf
 
         md = MarkdownIt('commonmark').enable('table')
         text = ("""
@@ -44,3 +45,7 @@ class TestConverter(TestBase):
 """)
         html_text = md.render(text)
         assert '<table>' in html_text
+
+        pdf = MarkdownPdf(toc_level=0)
+        pdf.add_section(Section(text))
+        pdf.save(self.build("table.pdf"))
