@@ -38,7 +38,7 @@ class MarkdownPdf:
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
-        self.m_d = (MarkdownIt(mode).enable('table')) # Enable support for tables
+        self.m_d = (MarkdownIt(mode).enable('table'))  # Enable support for tables
 
         self.out_file = io.BytesIO()
         self.writer = fitz.DocumentWriter(self.out_file)
