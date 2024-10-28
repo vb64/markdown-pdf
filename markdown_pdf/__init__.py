@@ -7,10 +7,7 @@ import fitz
 class Section:
     """Markdown section."""
 
-    def __init__(
-      self, text, toc=True, root=".", paper_size="A4",
-      borders=(36, 36, -36, -36)  # pylint: disable=too-many-arguments
-    ):
+    def __init__(self, text, toc=True, root=".", paper_size="A4", borders=(36, 36, -36, -36)):
         """Create md section with given properties."""
         self.text = text
         self.toc = toc
