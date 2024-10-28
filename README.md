@@ -76,7 +76,9 @@ text = """# Section with Table
 |ListCell|<ul><li>FirstBullet</li><li>SecondBullet</li></ul>|
 """
 
-pdf.add_section(Section(text))
+css = "table, th, td {border: 1px solid black;}"
+
+pdf.add_section(Section(text), user_css=css)
 ```
 
 Set the properties of the pdf document.
