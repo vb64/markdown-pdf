@@ -1,5 +1,6 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
 import io
+import typing
 from markdown_it import MarkdownIt
 import fitz
 
@@ -7,7 +8,14 @@ import fitz
 class Section:
     """Markdown section."""
 
-    def __init__(self, text, toc=True, root=".", paper_size="A4", borders=(36, 36, -36, -36)):
+    def __init__(
+      self,
+      text: str,
+      toc: bool = True,
+      root: str = ".",
+      paper_size: str = "A4",
+      borders: tuple = (36, 36, -36, -36)
+    ):
         """Create md section with given properties."""
         self.text = text
         self.toc = toc
@@ -31,7 +39,7 @@ class MarkdownPdf:
       "keywords": None,
     }
 
-    def __init__(self, toc_level=6, mode='commonmark'):
+    def __init__(self, toc_level: int = 6, mode: str = 'commonmark'):
         """Create md -> pdf converter with given TOC level and mode of md parsing."""
         self.toc_level = toc_level
         self.toc = []
@@ -45,7 +53,7 @@ class MarkdownPdf:
         self.page = 0
 
     @staticmethod
-    def recorder(elpos):
+    def _recorder(elpos):
         """Call function invoked during story.place() for making a TOC."""
         if not elpos.open_close & 1:  # only consider "open" items
             return
@@ -60,7 +68,7 @@ class MarkdownPdf:
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
-    def add_section(self, section, user_css=None):
+    def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> None:
         """Add markdown section to pdf."""
         rect = fitz.paper_rect(section.paper_size)
         where = rect + section.borders
@@ -70,11 +78,11 @@ class MarkdownPdf:
             self.page += 1
             device = self.writer.begin_page(rect)
             more, _ = story.place(where)  # layout into allowed rectangle
-            story.element_positions(self.recorder, {"toc": section.toc, "pdfile": self})
+            story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
             story.draw(device)
             self.writer.end_page()
 
-    def save(self, file_name):
+    def save(self, file_name: str) -> None:
         """Save pdf to file."""
         self.writer.close()
         doc = fitz.open("pdf", self.out_file)
