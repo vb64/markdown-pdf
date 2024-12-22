@@ -51,3 +51,14 @@ class TestConverter(TestBase):
         pdf = MarkdownPdf(toc_level=0)
         pdf.add_section(Section(TABLE_TEXT))
         pdf.save(self.build("table.pdf"))
+
+    def test_pathlib(self):
+        """Check pathlib.Path for save method."""
+        from pathlib import Path
+        from markdown_pdf import MarkdownPdf, Section
+
+        pdf = MarkdownPdf()
+        pdf.add_section(Section('# Hello World'))
+
+        file_path = Path(self.build('output.pdf'))
+        pdf.save(file_path)
