@@ -1,6 +1,7 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
 import io
 import typing
+import pathlib
 from markdown_it import MarkdownIt
 import fitz
 
@@ -82,7 +83,7 @@ class MarkdownPdf:
             story.draw(device)
             self.writer.end_page()
 
-    def save(self, file_name: str) -> None:
+    def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
         """Save pdf to file."""
         self.writer.close()
         doc = fitz.open("pdf", self.out_file)
