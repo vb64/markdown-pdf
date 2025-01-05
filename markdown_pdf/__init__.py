@@ -69,11 +69,12 @@ class MarkdownPdf:
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
-    def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> None:
+    def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
         rect = fitz.paper_rect(section.paper_size)
         where = rect + section.borders
-        story = fitz.Story(html=self.m_d.render(section.text), archive=section.root, user_css=user_css)
+        html = self.m_d.render(section.text)
+        story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
             self.page += 1
@@ -82,6 +83,8 @@ class MarkdownPdf:
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
             story.draw(device)
             self.writer.end_page()
+
+        return html
 
     def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
         """Save pdf to file."""
