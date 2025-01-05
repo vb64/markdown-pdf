@@ -15,4 +15,5 @@ class TestLatex(TestBase):
         pdf = MarkdownPdf()
         text = open(self.fixture("latex1.md"), "rt", encoding='utf-8').read()
         html = pdf.add_section(Section(text))
-        print(html)
+        # print(html)
+        assert "$$" in html
