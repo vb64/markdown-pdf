@@ -62,3 +62,11 @@ class TestConverter(TestBase):
 
         file_path = Path(self.build('output.pdf'))
         pdf.save(file_path)
+
+    def test_empty_head(self):
+        """Check markdown with empty head."""
+        from markdown_pdf import MarkdownPdf, Section
+
+        pdf = MarkdownPdf(toc_level=2)
+        pdf.add_section(Section("# "))
+        pdf.save(self.build("empty-head.pdf"))

@@ -1,5 +1,7 @@
 + Method `add_section` returns content of added section as html string.
 
+- Fixed segmentation fault with empty markdown heading (bump PyMuPDF up to 1.24.6).
+
 22.12.2024 ver.1.3.2
 --------------------
 
