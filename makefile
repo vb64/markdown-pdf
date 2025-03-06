@@ -54,6 +54,14 @@ pypi: package
 
 setup: setup_python setup_pip
 
+setup38: setup_python setup_pip38
+
+setup_pip38:
+	$(PIP) --upgrade pip
+	$(PIP) -r $(TESTS)/requirements.txt
+	$(PIP) -r requirements_38.txt
+	$(PIP) -r deploy.txt
+
 setup_pip:
 	$(PIP) --upgrade pip
 	$(PIP) -r $(TESTS)/requirements.txt
