@@ -117,3 +117,24 @@ pdf.save("guide.pdf")
 
 В качестве примера вы можете загрузить созданный из этого md файла [pdf файл](examples/markdown_pdf_ru.pdf).
 Для создания pdf файла использовался [этот скрипт](makepdf.py) Python.
+
+## Разработка
+
+```bash
+git clone git@github.com:vb64/markdown-pdf.git
+cd markdown-pdf
+```
+
+При использовании > 3.8
+
+```bash
+make setup PYTHON_BIN=/path/to/python3
+make tests
+```
+
+При использовании Python 3.8
+
+```bash
+make setup38 PYTHON_BIN=/path/to/python3.8
+make tests
+```
