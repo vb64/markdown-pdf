@@ -1,3 +1,6 @@
+07.03.2025 ver.1.4
+------------------
+
 + Using PyMuPDF version 1.25.3 for all Python environment except Python 3.8.
 
 08.01.2025 ver.1.3.3
