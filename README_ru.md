@@ -125,7 +125,7 @@ git clone git@github.com:vb64/markdown-pdf.git
 cd markdown-pdf
 ```
 
-При использовании > 3.8
+При использовании > Python 3.8
 
 ```bash
 make setup PYTHON_BIN=/path/to/python3
