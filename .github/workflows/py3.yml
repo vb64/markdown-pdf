@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
     - uses: actions/checkout@v3
@@ -49,3 +49,37 @@ jobs:
         if [ "$CODACY_PROJECT_TOKEN" != "" ]; then
           python-codacy-coverage -r coverage.xml
         fi
+
+  py38:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: ['3.8']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements_38.txt
+        pip install -r tests/requirements.txt
+
+    - name: flake8
+      run: |
+        flake8 --count --show-source --statistics --max-line-length=120 markdown_pdf
+        flake8 --count --show-source --statistics --max-line-length=120 tests/test
+
+    - name: pylint
+      run: |
+        python -m pylint markdown_pdf
+        python -m pylint tests/test
+
+    - name: pytest
+      run: |
+        pytest --cov=markdown_pdf --cov-report xml --cov-report term:skip-covered --durations=5 tests
