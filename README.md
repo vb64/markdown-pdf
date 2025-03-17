@@ -17,7 +17,7 @@ When creating a PDF file you can:
 - Tune the necessary elements using your CSS code
 - Use different page sizes within single pdf
 - Create tables in `markdown`
-- Use clickable hyperlinks. Thanks a lot [@thongtmtrust] (https://github.com/thongtmtrust) for ideas and collaboration.
+- Use clickable hyperlinks. Thanks a lot [@thongtmtrust](https://github.com/thongtmtrust) for ideas and collaboration.
 
 The module utilizes the functions of two great libraries.
 
