@@ -51,12 +51,14 @@ class MarkdownPdf:
 
         self.out_file = io.BytesIO()
         self.writer = fitz.DocumentWriter(self.out_file)
-        self.page = 0
+        self.page_num = 0
+        self.hrefs = []
 
     @staticmethod
     def _recorder(elpos):
         """Call function invoked during story.place() for making a TOC."""
-        print('#', elpos.href)  # ElementPosition ??
+        elpos.page_num = elpos.pdfile.page_num
+        elpos.pdfile.hrefs.append(elpos)
 
         if not elpos.open_close & 1:  # only consider "open" items
             return
@@ -67,7 +69,7 @@ class MarkdownPdf:
             elpos.pdfile.toc.append((
                 elpos.heading,
                 elpos.text,
-                elpos.pdfile.page,
+                elpos.pdfile.page_num,
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
@@ -79,7 +81,7 @@ class MarkdownPdf:
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
-            self.page += 1
+            self.page_num += 1
             device = self.writer.begin_page(rect)
             more, _ = story.place(where)  # layout into allowed rectangle
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
@@ -91,7 +93,8 @@ class MarkdownPdf:
     def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
         """Save pdf to file."""
         self.writer.close()
-        doc = fitz.open("pdf", self.out_file)
+        self.out_file.seek(0)
+        doc = fitz.Story.add_pdf_links(self.out_file, self.hrefs)
         doc.set_metadata(self.meta)
         if self.toc_level > 0:
             doc.set_toc(self.toc)
