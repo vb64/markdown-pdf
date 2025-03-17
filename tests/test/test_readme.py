@@ -4,6 +4,7 @@ make test T=test_readme.py
 """
 from . import TestBase
 
+
 class TestReadme(TestBase):
     """Latex content."""
 
