@@ -1,7 +1,5 @@
 + Clickable hyperlinks.
 
-Thanks a lot [@thongtmtrust] (https://github.com/thongtmtrust) for ideas and collaboration.
-
 07.03.2025 ver.1.4
 ------------------
 

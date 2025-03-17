@@ -17,6 +17,7 @@ When creating a PDF file you can:
 - Tune the necessary elements using your CSS code
 - Use different page sizes within single pdf
 - Create tables in `markdown`
+- Use clickable hyperlinks. Thanks a lot [@thongtmtrust] (https://github.com/thongtmtrust) for ideas and collaboration.
 
 The module utilizes the functions of two great libraries.
 
@@ -48,6 +49,7 @@ pdf.add_section(Section("# Title\n", toc=False))
 ```
 
 Add a second section with external and internal hyperlinks.
+In the pdf file it starts on a new page.
 
 ```python
 text = """# Section with links
@@ -60,7 +62,7 @@ text = """# Section with links
 pdf.add_section(Section(text))
 ```
 
-Add a third section. In the pdf file it starts on a new page.
+Add a third section.
 The title is centered using CSS, included in the table of contents of the pdf file, and an image from the file `img/python.png` is embedded on the page.
 
 ```python
