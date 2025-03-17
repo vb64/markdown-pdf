@@ -47,24 +47,37 @@ from markdown_pdf import Section
 pdf.add_section(Section("# Title\n", toc=False))
 ```
 
-Add a second section. In the pdf file it starts on a new page.
+Add a second section with external and internal hyperlinks.
+
+```python
+text = """# Section with links
+
+- [External link](https://github.com/vb64/markdown-pdf)
+- [Internal link to Head1](#head1)
+- [Internal link to Head3](#head3)
+"""
+
+pdf.add_section(Section(text))
+```
+
+Add a third section. In the pdf file it starts on a new page.
 The title is centered using CSS, included in the table of contents of the pdf file, and an image from the file `img/python.png` is embedded on the page.
 
 ```python
 pdf.add_section(
-  Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
+  Section("# <a name='head1'></a>Head1\n\n![python](img/python.png)\n\nbody\n"),
   user_css="h1 {text-align:center;}"
 )
 ```
 
-Add a third section. Two headings of different levels from this section are included in the TOC of the pdf file.
+Add a next section. Two headings of different levels from this section are included in the TOC of the pdf file.
 The section has landscape orientation of A4 pages.
 
 ```python
-pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
+pdf.add_section(Section("## Head2\n\n### <a id='head3'></a>Head3\n\n", paper_size="A4-L"))
 ```
 
-Add a fourth section with a table.
+Add a section with a table.
 
 ```python
 

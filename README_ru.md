@@ -41,24 +41,37 @@ from markdown_pdf import Section
 pdf.add_section(Section("# Title\n", toc=False))
 ```
 
-Добавляем вторую секцию. В pdf-файле она начинается с новой страницы.
+Добавляем вторую секцию с внешними и внутренними гипер-ссылками.
+
+```python
+text = """# Section with links
+
+- [External link](https://github.com/vb64/markdown-pdf)
+- [Internal link to Head1](#head1)
+- [Internal link to Head3](#head3)
+"""
+
+pdf.add_section(Section(text))
+```
+
+Добавляем третью секцию. В pdf-файле она начинается с новой страницы.
 Заголовок центрируется при помощи CSS, включается в оглавление pdf-файла и на страницу встраивается изображение из файла `img/python.png`.
 
 ```python
 pdf.add_section(
-  Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
+  Section("# <a name='head1'>Head1\n\n![python](img/python.png)\n\nbody\n"),
   user_css="h1 {text-align:center;}"
 )
 ```
 
-Добавляем третью секцию. Два заголовка разного уровня из этой секции включаются в оглавление pdf-файла.
+Добавляем следующую секцию. Два заголовка разного уровня из этой секции включаются в оглавление pdf-файла.
 Секция имеет альбомную ориентацию страниц A4.
 
 ```python
-pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
+pdf.add_section(Section("## Head2\n\n### <a id='head3'></a>Head3\n\n", paper_size="A4-L"))
 ```
 
-Добавляем четвертую секцию с таблицей.
+Добавляем секцию с таблицей.
 
 ```python
 

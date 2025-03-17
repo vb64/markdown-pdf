@@ -14,11 +14,20 @@ class TestReadme(TestBase):
 
         pdf = MarkdownPdf(toc_level=2)
         pdf.add_section(Section("# Title\n", toc=False))
+
+        text = """# Section with links
+
+- [External link](https://github.com/vb64/markdown-pdf)
+- [Internal link to Head1](#head1)
+- [Internal link to Head3](#head3)
+"""
+        pdf.add_section(Section(text))
+
         pdf.add_section(
-          Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
+          Section("# <a name='head1'></a>Head1\n\n![python](img/python.png)\n\nbody\n"),
           user_css="h1 {text-align:center;}"
         )
-        pdf.add_section(Section("## Head2\n\n### Head3\n\n", paper_size="A4-L"))
+        pdf.add_section(Section("## Head2\n\n### <a id='head3'></a>Head3\n\n", paper_size="A4-L"))
         text = """# Section with Table
 
 |TableHeader1|TableHeader2|
