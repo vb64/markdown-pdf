@@ -56,6 +56,8 @@ class MarkdownPdf:
     @staticmethod
     def _recorder(elpos):
         """Call function invoked during story.place() for making a TOC."""
+        print('#', elpos.href)  # ElementPosition ??
+
         if not elpos.open_close & 1:  # only consider "open" items
             return
         if not elpos.toc:

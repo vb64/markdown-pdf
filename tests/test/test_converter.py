@@ -70,3 +70,13 @@ class TestConverter(TestBase):
         pdf = MarkdownPdf(toc_level=2)
         pdf.add_section(Section("# "))
         pdf.save(self.build("empty-head.pdf"))
+
+    def test_hrefs(self):
+        """Convert hrefs content to pdf."""
+        from markdown_pdf import Section, MarkdownPdf
+
+        pdf = MarkdownPdf()
+        pdf.add_section(
+          Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
+        )
+        pdf.save(self.build("hrefs.pdf"))
