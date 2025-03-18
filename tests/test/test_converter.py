@@ -22,12 +22,12 @@ class TestConverter(TestBase):
 
         pdf = MarkdownPdf(toc_level=2)
         pdf.add_section(Section("# Title\n", toc=False))
+        pdf.add_section(Section(TABLE_TEXT))
         pdf.add_section(
           Section("# Head1\n\n![python](img/python.png)\n\nbody\n"),
           user_css="h1 {text-align:center;}"
         )
         pdf.add_section(Section("## Head2\n\n### Head3\n\n"))
-        pdf.add_section(Section(TABLE_TEXT))
         pdf.save(self.build("with_toc.pdf"))
 
     def test_no_toc(self):
@@ -70,3 +70,13 @@ class TestConverter(TestBase):
         pdf = MarkdownPdf(toc_level=2)
         pdf.add_section(Section("# "))
         pdf.save(self.build("empty-head.pdf"))
+
+    def test_hrefs(self):
+        """Convert hrefs content to pdf."""
+        from markdown_pdf import Section, MarkdownPdf
+
+        pdf = MarkdownPdf()
+        pdf.add_section(
+          Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
+        )
+        pdf.save(self.build("hrefs.pdf"))
