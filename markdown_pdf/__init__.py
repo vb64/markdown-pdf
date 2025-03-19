@@ -56,7 +56,7 @@ class MarkdownPdf:
 
     @staticmethod
     def _recorder(elpos):
-        """Call function invoked during story.place() for making a TOC."""
+        """Call function invoked during story.element_positions() for making a TOC and hrefs."""
         elpos.page_num = elpos.pdfile.page_num
         elpos.pdfile.hrefs.append(elpos)
 
