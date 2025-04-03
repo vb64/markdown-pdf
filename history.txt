@@ -1,3 +1,9 @@
+03.04.2025 ver.1.6
+------------------
+
+* Project license changed from MIT to AGPL-3.0. Becouse underlaying PyMuPDF library released under AGPL.
+https://github.com/vb64/markdown-pdf/issues/55
+
 18.03.2025 ver.1.5
 ------------------
 
