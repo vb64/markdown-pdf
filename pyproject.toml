@@ -42,3 +42,6 @@ dev = [
 
 [tool.setuptools]
 packages = ["markdown_pdf"]
+
+[tool.setuptools.package-data]
+"markdown_pdf" = ["py.typed"]
