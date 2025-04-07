@@ -4,3 +4,41 @@ requires = [
     "wheel"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "markdown_pdf"
+version = "1.6"
+description = "Markdown to pdf renderer"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.8"
+license = { text = "GNU Affero General Public License v3" }
+authors = [
+    { name = "Vitaly Bogomolov", email = "mail@vitaly-bogomolov.ru" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "PyMuPDF==1.24.6; python_version<'3.9'",
+    "PyMuPDF==1.25.3; python_version>'3.8'",
+    "markdown-it-py==3.0.0; python_version>='3.8'"
+]
+
+[project.optional-dependencies]
+dev = [
+    "flake8",
+    "pylint",
+    "pydocstyle",
+    "pytest",
+    "pytest-cov",
+    "codacy-coverage",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/vb64/markdown-pdf"
+"Bug Tracker" = "https://github.com/vb64/markdown-pdf/issues"
+
+[tool.setuptools]
+packages = ["markdown_pdf"]
