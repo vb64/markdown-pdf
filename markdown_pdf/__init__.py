@@ -15,7 +15,7 @@ class Section:
       toc: bool = True,
       root: str = ".",
       paper_size: str = "A4",
-      borders: tuple = (36, 36, -36, -36)
+      borders: tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
         self.text = text

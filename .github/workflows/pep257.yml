@@ -1,6 +1,7 @@
 name: pep257
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

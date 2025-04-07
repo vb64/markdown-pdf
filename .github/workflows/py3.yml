@@ -2,6 +2,7 @@
 name: py3
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -28,8 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r tests/requirements.txt
+        pip install '.[dev]'
 
     - name: flake8
       run: |
@@ -67,8 +67,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements_38.txt
-        pip install -r tests/requirements.txt
+        pip install '.[dev]'
 
     - name: flake8
       run: |
