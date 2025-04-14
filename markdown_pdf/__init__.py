@@ -1,7 +1,6 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
 import io
 import typing
-from typing import Tuple
 import pathlib
 
 
@@ -18,7 +17,7 @@ class Section:
       toc: bool = True,
       root: str = ".",
       paper_size: str = "A4",
-      borders: Tuple[int, int, int, int] = (36, 36, -36, -36)
+      borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
         self.text = text
