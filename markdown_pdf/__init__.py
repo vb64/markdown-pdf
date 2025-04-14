@@ -2,6 +2,8 @@
 import io
 import typing
 import pathlib
+
+
 from markdown_it import MarkdownIt
 import fitz
 
@@ -15,7 +17,7 @@ class Section:
       toc: bool = True,
       root: str = ".",
       paper_size: str = "A4",
-      borders: tuple = (36, 36, -36, -36)
+      borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
         self.text = text
