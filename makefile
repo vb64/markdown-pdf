@@ -44,7 +44,7 @@ example:
 	$(PYTHON) makepdf.py README_ru.md examples/markdown_pdf_ru.pdf
 
 package:
-	$(PYTHON) -m build -n
+	$(PYTHON) -m build
 
 pypitest: package
 	$(PYTHON) -m twine upload --config-file .pypirc --repository testpypi dist/*
@@ -53,13 +53,6 @@ pypi: package
 	$(PYTHON) -m twine upload --config-file .pypirc dist/*
 
 setup: setup_python setup_pip
-
-setup38: setup_python setup_pip38
-
-setup_pip38:
-	$(PIP) --upgrade pip
-	$(PIP) '.[dev]'
-	$(PIP) -r deploy.txt
 
 setup_pip:
 	$(PIP) --upgrade pip
