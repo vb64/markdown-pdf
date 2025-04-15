@@ -145,18 +145,6 @@ This [Python script](makepdf.py) was used to create the PDF file.
 ```bash
 git clone git@github.com:vb64/markdown-pdf.git
 cd markdown-pdf
-```
-
-With Python > 3.8
-
-```bash
 make setup PYTHON_BIN=/path/to/python3
-make tests
-```
-
-With Python 3.8
-
-```bash
-make setup38 PYTHON_BIN=/path/to/python3.8
 make tests
 ```

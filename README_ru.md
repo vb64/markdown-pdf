@@ -138,18 +138,6 @@ pdf.save("guide.pdf")
 ```bash
 git clone git@github.com:vb64/markdown-pdf.git
 cd markdown-pdf
-```
-
-При использовании > Python 3.8
-
-```bash
 make setup PYTHON_BIN=/path/to/python3
-make tests
-```
-
-При использовании Python 3.8
-
-```bash
-make setup38 PYTHON_BIN=/path/to/python3.8
 make tests
 ```
