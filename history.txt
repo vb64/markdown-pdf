@@ -1,3 +1,5 @@
++ Added `optimize` option for MarkdownPdf class, that generate compressed pdf-file.
+
 + Added file py.typed.
 
 * Package completely managed by pyproject.toml.

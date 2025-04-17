@@ -42,7 +42,7 @@ class MarkdownPdf:
       "keywords": None,
     }
 
-    def __init__(self, toc_level: int = 6, mode: str = 'commonmark'):
+    def __init__(self, toc_level: int = 6, mode: str = 'commonmark', optimize: bool = False):
         """Create md -> pdf converter with given TOC level and mode of md parsing."""
         self.toc_level = toc_level
         self.toc = []
@@ -50,6 +50,8 @@ class MarkdownPdf:
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
         self.m_d = (MarkdownIt(mode).enable('table'))  # Enable support for tables
+
+        self.optimize = optimize
 
         self.out_file = io.BytesIO()
         self.writer = fitz.DocumentWriter(self.out_file)
@@ -100,5 +102,8 @@ class MarkdownPdf:
         doc.set_metadata(self.meta)
         if self.toc_level > 0:
             doc.set_toc(self.toc)
-        doc.save(file_name)
+        if self.optimize:
+            doc.ez_save(file_name)
+        else:
+            doc.save(file_name)
         doc.close()

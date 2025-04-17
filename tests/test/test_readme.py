@@ -12,7 +12,7 @@ class TestReadme(TestBase):
         """Test README.md example code."""
         from markdown_pdf import Section, MarkdownPdf
 
-        pdf = MarkdownPdf(toc_level=2)
+        pdf = MarkdownPdf(toc_level=2, optimize=True)
         pdf.add_section(Section("# Title\n", toc=False))
 
         text = """# Section with links
