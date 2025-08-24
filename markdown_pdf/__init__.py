@@ -3,9 +3,11 @@ import io
 import typing
 import pathlib
 
-
-from markdown_it import MarkdownIt
 import fitz
+from markdown_it import MarkdownIt
+from pymupdf import (
+  _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF,
+)
 
 
 class Section:
@@ -94,16 +96,57 @@ class MarkdownPdf:
 
         return html
 
-    def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
-        """Save pdf to file."""
+    def _make_doc(self):
+        """Return fitz doc object."""
         self.writer.close()
         self.out_file.seek(0)
         doc = fitz.Story.add_pdf_links(self.out_file, self.hrefs)
         doc.set_metadata(self.meta)
         if self.toc_level > 0:
             doc.set_toc(self.toc)
+
+        return doc
+
+    def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
+        """Save pdf to file."""
+        doc = self._make_doc()
         if self.optimize:
             doc.ez_save(file_name)
         else:
             doc.save(file_name)
         doc.close()
+
+    def save_bytes(self, bytesio: io.BytesIO) -> None:
+        """Save pdf to file-like object."""
+        doc = self._make_doc()
+
+        pdf = _as_pdf_document(doc)
+        opts = mupdf.PdfWriteOptions()
+
+        opts.do_incremental = 0
+        opts.do_ascii = 0
+        opts.do_compress = 0
+        opts.do_compress_images = 0
+        opts.do_compress_fonts = 0
+        opts.do_decompress = 0
+        opts.do_garbage = 0
+        opts.do_pretty = 0
+        opts.do_linear = 0
+        opts.do_clean = 0
+        opts.do_sanitize = 0
+        opts.dont_regenerate_id = 0
+        opts.do_appearance = 0
+        opts.do_encrypt = 1
+        opts.permissions = 4095
+        opts.do_preserve_metadata = 1
+        opts.do_use_objstms = 0
+        opts.compression_effort = 0
+
+        ASSERT_PDF(pdf)
+        pdf.m_internal.resynth_required = 0
+        JM_embedded_clean(pdf)
+        JM_ensure_identity(pdf)
+
+        out = JM_new_output_fileptr(bytesio)
+        mupdf.pdf_write_document(pdf, out, opts)
+        out.fz_close_output()
