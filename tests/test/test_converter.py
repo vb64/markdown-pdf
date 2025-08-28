@@ -2,6 +2,7 @@
 
 make test T=test_converter.py
 """
+import io
 from . import TestBase
 
 TABLE_TEXT = """# Section with Table
@@ -80,3 +81,16 @@ class TestConverter(TestBase):
           Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
         )
         pdf.save(self.build("hrefs.pdf"))
+
+    def test_bytes(self):
+        """Save pdf as bytes IO."""
+        from markdown_pdf import Section, MarkdownPdf
+        out = io.BytesIO()
+
+        pdf = MarkdownPdf(toc_level=2)
+        pdf.add_section(Section("# Title Bytes\n", toc=False))
+        pdf.add_section(Section("# Bytes1\n\nbody\n"))
+        pdf.save_bytes(out)
+        assert out.getbuffer().nbytes == 122694
+        with open(self.build("as_bytes.pdf"), "wb") as i:
+            i.write(out.getvalue())
