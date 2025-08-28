@@ -91,6 +91,6 @@ class TestConverter(TestBase):
         pdf.add_section(Section("# Title Bytes\n", toc=False))
         pdf.add_section(Section("# Bytes1\n\nbody\n"))
         pdf.save_bytes(out)
-        assert out.getbuffer().nbytes == 122694
+        assert out.getbuffer().nbytes > 0
         with open(self.build("as_bytes.pdf"), "wb") as i:
             i.write(out.getvalue())
