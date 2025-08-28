@@ -103,6 +103,16 @@ pdf.meta["author"] = "Виталий Богомолов"
 pdf.save("guide.pdf")
 ```
 
+Либо сохраняем в буфер памяти.
+
+```python
+import io
+
+out = io.BytesIO()
+pdf.save_bytes(out)
+assert out.getbuffer().nbytes > 0
+```
+
 ![Pdf](img/with_toc.png)
 
 ## Настройки и опции

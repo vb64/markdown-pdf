@@ -109,6 +109,16 @@ Save to file.
 pdf.save("guide.pdf")
 ```
 
+Or save to file-like object.
+
+```python
+import io
+
+out = io.BytesIO()
+pdf.save_bytes(out)
+assert out.getbuffer().nbytes > 0
+```
+
 ![Pdf](img/with_toc.png)
 
 ## Settings and options
