@@ -1,3 +1,5 @@
++ Allow to save result to file-like object.
+
 17.04.2025 ver.1.7
 ------------------
 

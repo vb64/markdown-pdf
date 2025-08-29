@@ -116,8 +116,8 @@ class MarkdownPdf:
             doc.save(file_name)
         doc.close()
 
-    def save_bytes(self, bytesio: io.BytesIO) -> None:
-        """Save pdf to file-like object."""
+    def save_bytes(self, bytesio: io.BytesIO) -> int:
+        """Save pdf to file-like object and return byte size of the filled object."""
         doc = self._make_doc()
 
         pdf = _as_pdf_document(doc)
@@ -150,3 +150,5 @@ class MarkdownPdf:
         out = JM_new_output_fileptr(bytesio)
         mupdf.pdf_write_document(pdf, out, opts)
         out.fz_close_output()
+
+        return bytesio.getbuffer().nbytes
