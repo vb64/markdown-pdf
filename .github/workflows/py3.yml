@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        pymupdf-version: ['1.26.4', '1.26.3', '1.26.1', '1.26.0', '1.25.5', '1.25.4']
 
     steps:
     - uses: actions/checkout@v3
@@ -26,10 +27,12 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
+    - name: Install dependencies with PyMuPDF==${{ matrix.pymupdf-version }}
       run: |
         python -m pip install --upgrade pip
         pip install '.[dev]'
+        # Override pymupdf with the matrix version
+        pip install "PyMuPDF==${{ matrix.pymupdf-version }}"
 
     - name: flake8
       run: |
