@@ -1,3 +1,8 @@
+03.09.2025 ver.1.9
+------------------
+
++ Supported more recent versions of pymupdf up to 1.26.4.
+
 31.08.2025 ver.1.8
 ------------------
 
