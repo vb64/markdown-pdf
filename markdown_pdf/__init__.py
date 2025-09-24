@@ -18,7 +18,7 @@ class Section:
       text: str,
       toc: bool = True,
       root: str = ".",
-      paper_size: str|list = "A4",
+      paper_size: str or list = "A4",
       borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
