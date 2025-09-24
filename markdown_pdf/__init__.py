@@ -18,7 +18,7 @@ class Section:
       text: str,
       toc: bool = True,
       root: str = ".",
-      paper_size: str or list = "A4",
+      paper_size: str or list or tuple = "A4",
       borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
@@ -83,11 +83,11 @@ class MarkdownPdf:
         """Add markdown section to pdf."""
         if isinstance(section.paper_size, str):
             rect = fitz.paper_rect(section.paper_size)
-        elif isinstance(section.paper_size, list):
+        elif isinstance(section.paper_size, (list, tuple)):
             # Other paper sizes are in pt, so need to times mm by 2.835.
             rect = Rect(0.0, 0.0, (section.paper_size[0] * 2.835), (section.paper_size[1] * 2.835))
         else:
-            raise TypeError("paper_size must be 'str' or 'list'")
+            raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
         where = rect + section.borders
         html = self.m_d.render(section.text)
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
