@@ -27,8 +27,17 @@ class Section:
         self.text = text
         self.toc = toc
         self.root = root
+
         # https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size
         self.paper_size = paper_size
+        if isinstance(paper_size, str):
+            self.rect = fitz.paper_rect(paper_size)
+        elif isinstance(paper_size, (list, tuple)):
+            # Other paper sizes are in pt, so need to times mm by 2.835.
+            self.rect = Rect(0.0, 0.0, (paper_size[0] * MM_2_PT), (paper_size[1] * MM_2_PT))
+        else:
+            raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
+
         self.borders = borders
 
 
@@ -83,21 +92,13 @@ class MarkdownPdf:
 
     def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
-        if isinstance(section.paper_size, str):
-            rect = fitz.paper_rect(section.paper_size)
-        elif isinstance(section.paper_size, (list, tuple)):
-            # Other paper sizes are in pt, so need to times mm by 2.835.
-            rect = Rect(0.0, 0.0, (section.paper_size[0] * MM_2_PT), (section.paper_size[1] * MM_2_PT))
-        else:
-            raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
-
-        where = rect + section.borders
+        where = section.rect + section.borders
         html = self.m_d.render(section.text)
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
             self.page_num += 1
-            device = self.writer.begin_page(rect)
+            device = self.writer.begin_page(section.rect)
             more, _ = story.place(where)  # layout into allowed rectangle
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
             story.draw(device)
