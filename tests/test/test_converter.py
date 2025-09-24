@@ -3,6 +3,8 @@
 make test T=test_converter.py
 """
 import io
+import pytest
+
 from . import TestBase
 
 TABLE_TEXT = """# Section with Table
@@ -94,3 +96,19 @@ class TestConverter(TestBase):
         assert out.getbuffer().nbytes > 0
         with open(self.build("as_bytes.pdf"), "wb") as i:
             i.write(out.getvalue())
+
+    def test_paper_size(self):
+        """Check paper_size arg for Section class."""
+        from markdown_pdf import Section
+
+        section = Section("Title")  # default paper size 'A4'
+        assert section.rect.height == 842.0
+        assert section.rect.width == 595.0
+
+        section = Section("Title", paper_size=(5, 10))  # 5x10 mm
+        assert section.rect.height == 28.35
+        assert section.rect.width == 14.175
+
+        with pytest.raises(TypeError) as err:
+            Section("Title", paper_size=111)
+        assert 'paper_size must be' in str(err.value)
