@@ -9,6 +9,8 @@ from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
 
+MM_2_PT = 2.835
+
 
 class Section:
     """Markdown section."""
@@ -85,9 +87,10 @@ class MarkdownPdf:
             rect = fitz.paper_rect(section.paper_size)
         elif isinstance(section.paper_size, (list, tuple)):
             # Other paper sizes are in pt, so need to times mm by 2.835.
-            rect = Rect(0.0, 0.0, (section.paper_size[0] * 2.835), (section.paper_size[1] * 2.835))
+            rect = Rect(0.0, 0.0, (section.paper_size[0] * MM_2_PT), (section.paper_size[1] * MM_2_PT))
         else:
             raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
+
         where = rect + section.borders
         html = self.m_d.render(section.text)
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
