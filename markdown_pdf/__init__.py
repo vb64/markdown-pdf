@@ -6,8 +6,10 @@ import pathlib
 import fitz
 from markdown_it import MarkdownIt
 from pymupdf import (
-  _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF,
+  _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
+
+MM_2_PT = 2.835
 
 
 class Section:
@@ -18,15 +20,25 @@ class Section:
       text: str,
       toc: bool = True,
       root: str = ".",
-      paper_size: str = "A4",
+      paper_size: str or list or tuple = "A4",
       borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
         self.text = text
         self.toc = toc
         self.root = root
-        # https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size
+
         self.paper_size = paper_size
+        if isinstance(paper_size, str):
+            # https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size
+            self.rect = fitz.paper_rect(paper_size)
+        elif isinstance(paper_size, (list, tuple)):
+            # Other paper sizes are in pt, so need to times mm by 2.835.
+            width, height = paper_size
+            self.rect = Rect(0.0, 0.0, (width * MM_2_PT), (height * MM_2_PT))
+        else:
+            raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
+
         self.borders = borders
 
 
@@ -81,14 +93,13 @@ class MarkdownPdf:
 
     def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
-        rect = fitz.paper_rect(section.paper_size)
-        where = rect + section.borders
+        where = section.rect + section.borders
         html = self.m_d.render(section.text)
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
             self.page_num += 1
-            device = self.writer.begin_page(rect)
+            device = self.writer.begin_page(section.rect)
             more, _ = story.place(where)  # layout into allowed rectangle
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
             story.draw(device)

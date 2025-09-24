@@ -124,7 +124,7 @@ assert out.getbuffer().nbytes > 0
 
 - toc: нужно ли включать заголовки `<h1>` - `<h6>` этой секции в TOC. По умолчанию True.
 - root: имя корневого каталога, от которого начинаются пути файлов картинок в markdown. По умолчанию ".".
-- paper_size: название размера бумаги, [как описано здесь](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size). По умолчанию "A4".
+- paper_size: название размера бумаги, [как описано здесь](https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size), или list/tuple содержащий ширину и высоту в мм. По умолчанию "A4".
 - borders: размер полей. По умолчанию (36, 36, -36, -36).
 
 Для присвоения доступны следующие свойства документа (словарь `MarkdownPdf.meta`) с указанными значениями по умолчанию.
