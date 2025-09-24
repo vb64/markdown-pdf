@@ -6,7 +6,7 @@ import pathlib
 import fitz
 from markdown_it import MarkdownIt
 from pymupdf import (
-  _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF,
+  _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
 
 
@@ -18,7 +18,7 @@ class Section:
       text: str,
       toc: bool = True,
       root: str = ".",
-      paper_size: str = "A4",
+      paper_size: str|list = "A4",
       borders: typing.Tuple[int, int, int, int] = (36, 36, -36, -36)
     ):
         """Create md section with given properties."""
@@ -81,7 +81,13 @@ class MarkdownPdf:
 
     def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
-        rect = fitz.paper_rect(section.paper_size)
+        if isinstance(section.paper_size, str):
+            rect = fitz.paper_rect(section.paper_size)
+        elif isinstance(section.paper_size, list):
+            # Other paper sizes are in pt, so need to times mm by 2.835.
+            rect = Rect(0.0, 0.0, (section.paper_size[0] * 2.835), (section.paper_size[1] * 2.835))
+        else:
+            raise TypeError("paper_size must be 'str' or 'list'")
         where = rect + section.borders
         html = self.m_d.render(section.text)
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
