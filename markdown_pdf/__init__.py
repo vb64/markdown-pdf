@@ -28,13 +28,14 @@ class Section:
         self.toc = toc
         self.root = root
 
-        # https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size
         self.paper_size = paper_size
         if isinstance(paper_size, str):
+            # https://pymupdf.readthedocs.io/en/latest/functions.html#paper_size
             self.rect = fitz.paper_rect(paper_size)
         elif isinstance(paper_size, (list, tuple)):
             # Other paper sizes are in pt, so need to times mm by 2.835.
-            self.rect = Rect(0.0, 0.0, (paper_size[0] * MM_2_PT), (paper_size[1] * MM_2_PT))
+            width, height = paper_size
+            self.rect = Rect(0.0, 0.0, (width * MM_2_PT), (height * MM_2_PT))
         else:
             raise TypeError("paper_size must be 'str', 'tuple' or 'list'")
 
