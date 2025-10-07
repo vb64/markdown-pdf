@@ -45,3 +45,11 @@ packages = ["markdown_pdf"]
 
 [tool.setuptools.package-data]
 "markdown_pdf" = ["py.typed"]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:builtin type swigvarlink has no __module__ attribute:DeprecationWarning',
+    'ignore:builtin type SwigPyObject has no __module__ attribute:DeprecationWarning',
+    'ignore:builtin type SwigPyPacked has no __module__ attribute:DeprecationWarning',
+]
