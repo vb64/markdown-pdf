@@ -42,3 +42,36 @@ class TestReadme(TestBase):
         pdf.meta["author"] = "Vitaly Bogomolov"
 
         pdf.save(self.build("readme.pdf"))
+
+    def test_user_case_1(self):
+        """Test user case from discussion."""
+        from markdown_pdf import Section, MarkdownPdf
+
+        document_text_2 = """
+# Test Header 0
+
+Here's some background.
+
+## Test Header 1
+
+### 🗂️ Header 2 with hyperlink [link](http://www.example.com)
+
+Some **Bold Text**
+
+A lot more text here
+"""
+
+        document_text = "# Test Header 0\n"
+        document_text += "\nHere's some background.\n"
+        document_text += "\n## Test Header 1\n"
+        document_text += "\n### 🗂️ Header 2 with hyperlink [link](http://www.example.com)\n"
+        document_text += "Some **Bold Text**\n"
+        document_text += "\nA lot more text here"
+
+        pdf = MarkdownPdf(toc_level=2, optimize=True)
+        pdf.add_section(Section(document_text, toc=False))
+        pdf.save(self.build("rendered1.pdf"))
+
+        pdf = MarkdownPdf(toc_level=2, optimize=True)
+        pdf.add_section(Section(document_text_2, toc=False))
+        pdf.save(self.build("rendered2.pdf"))
