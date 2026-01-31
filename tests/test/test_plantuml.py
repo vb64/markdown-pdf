@@ -26,7 +26,8 @@ class TesPlantuml(TestBase):
 
     def test_md(self):
         """Process md with plantuml content."""
-        from markdown_pdf import Section, MarkdownPdf, EXT_PLANTUML
+        from markdown_pdf import Section, MarkdownPdf
+        from markdown_pdf.pligins import Plugin
 
         pdf = MarkdownPdf()
         assert not pdf.plugins
@@ -36,4 +37,4 @@ class TesPlantuml(TestBase):
         pdf.save(self.build("plantuml.pdf"))
 
         pdf = MarkdownPdf(ext_plantuml="www")
-        assert EXT_PLANTUML in pdf.plugins
+        assert Plugin.Plantuml in pdf.plugins

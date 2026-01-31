@@ -8,24 +8,9 @@ from markdown_it import MarkdownIt
 from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
+from .pligins import Plugin, PLUGINS, get_plugin_chunks
 
 MM_2_PT = 2.835
-EXT_PLANTUML = "plantuml"
-
-
-def plugin_plantunl(_url, text, _temp_files):
-    """Translate plantunl marked text to png image."""
-    return text
-
-
-PLUGINS = {
-  EXT_PLANTUML: plugin_plantunl,
-}
-
-
-def get_plugin_chunks(_key, _text):
-    """Extract key part from given text."""
-    return ""
 
 
 class Section:
@@ -86,7 +71,7 @@ class MarkdownPdf:
         self.temp_files = []
 
         if ext_plantuml:
-            self.plugins[EXT_PLANTUML] = ext_plantuml
+            self.plugins[Plugin.Plantuml] = ext_plantuml
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
