@@ -13,6 +13,21 @@ MM_2_PT = 2.835
 EXT_PLANTUML = "plantuml"
 
 
+def plugin_plantunl(_url, text, _temp_files):
+    """Translate plantunl marked text to png image."""
+    return text
+
+
+PLUGINS = {
+  EXT_PLANTUML: plugin_plantunl,
+}
+
+
+def get_plugin_chunks(_key, _text):
+    """Extract key part from given text."""
+    return ""
+
+
 class Section:
     """Markdown section."""
 
@@ -68,6 +83,7 @@ class MarkdownPdf:
         self.toc_level = toc_level
         self.toc = []
         self.plugins = {}
+        self.temp_files = []
 
         if ext_plantuml:
             self.plugins[EXT_PLANTUML] = ext_plantuml
@@ -102,10 +118,18 @@ class MarkdownPdf:
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
+    def apply_plugins(self, text):
+        """Return modified text according plugins settings."""
+        for key, val in self.plugins.items():
+            for chunk in get_plugin_chunks(key, text):
+                text = text.replace(chunk, PLUGINS[key](val, chunk, self.temp_files))
+
+        return text
+
     def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
         where = section.rect + section.borders
-        html = self.m_d.render(section.text)
+        html = self.m_d.render(self.apply_plugins(section.text))
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
