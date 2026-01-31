@@ -23,3 +23,13 @@ class TesPlantuml(TestBase):
         assert len(image) > 0
         with open(self.build("test_plantuml.png"), "wb") as out:
             out.write(image)
+
+    def test_md(self):
+        """Process md with plantuml content."""
+        from markdown_pdf import Section, MarkdownPdf
+
+        pdf = MarkdownPdf()
+        text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
+        html = pdf.add_section(Section(text))
+        assert "@startuml" in html
+        pdf.save(self.build("plantuml.pdf"))
