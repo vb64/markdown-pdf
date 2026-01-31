@@ -14,5 +14,5 @@ PLUGINS = {
 
 
 def get_plugin_chunks(_key, _text):
-    """Extract key part from given text."""
-    return ""
+    """Extract key parts from given text."""
+    return []
