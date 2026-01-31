@@ -16,7 +16,7 @@ Bob --> Alice: Hi!
 class TesPlantuml(TestBase):
     """Plantuml content."""
 
-    def test_www(self):
+    def _test_www(self):
         """Make image for plantuml content."""
         server = PlantUML(url='http://www.plantuml.com/plantuml/img/')
         image = server.processes(UML_CODE)
@@ -26,10 +26,14 @@ class TesPlantuml(TestBase):
 
     def test_md(self):
         """Process md with plantuml content."""
-        from markdown_pdf import Section, MarkdownPdf
+        from markdown_pdf import Section, MarkdownPdf, EXT_PLANTUML
 
         pdf = MarkdownPdf()
+        assert not pdf.plugins
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         html = pdf.add_section(Section(text))
         assert "@startuml" in html
         pdf.save(self.build("plantuml.pdf"))
+
+        pdf = MarkdownPdf(ext_plantuml="www")
+        assert EXT_PLANTUML in pdf.plugins

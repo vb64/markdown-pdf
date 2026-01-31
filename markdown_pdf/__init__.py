@@ -10,6 +10,7 @@ from pymupdf import (
 )
 
 MM_2_PT = 2.835
+EXT_PLANTUML = "plantuml"
 
 
 class Section:
@@ -56,10 +57,20 @@ class MarkdownPdf:
       "keywords": None,
     }
 
-    def __init__(self, toc_level: int = 6, mode: str = 'commonmark', optimize: bool = False):
+    def __init__(
+      self,
+      toc_level: int = 6,
+      mode: str = 'commonmark',
+      optimize: bool = False,
+      ext_plantuml: typing.Optional[str] = None
+    ):
         """Create md -> pdf converter with given TOC level and mode of md parsing."""
         self.toc_level = toc_level
         self.toc = []
+        self.plugins = {}
+
+        if ext_plantuml:
+            self.plugins[EXT_PLANTUML] = ext_plantuml
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
