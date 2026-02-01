@@ -13,6 +13,20 @@ PLUGINS = {
 }
 
 
-def get_plugin_chunks(_key, _text):
+def get_plugin_chunks(key, text):
     """Extract key parts from given text."""
-    return []
+    chunk = []
+    chunks = []
+
+    for line in text.splitlines():
+
+        if line.startswith("```{}".format(key)):
+            chunk = [line]
+        elif (line.startswith("```")) and chunk:
+            chunk.append(line)
+            chunks.append('\n'.join(chunk))
+            chunk = []
+        elif chunk:
+            chunk.append(line)
+
+    return chunks
