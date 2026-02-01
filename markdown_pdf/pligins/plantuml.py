@@ -7,7 +7,7 @@ def handler(params_dict, text, temp_files):
     """Translate plantunl marked text to png image."""
     url = params_dict.get("url")
     if not url:
-        return "No value for 'url' key in plantuml plugin paremeters: {}".format(params_dict)
+        return "No value for 'url' key in plantuml plugin parameters: {}".format(params_dict)
 
     text = '\n'.join(text.splitlines()[1:-1])
     server = PlantUML(url=url)
