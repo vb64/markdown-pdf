@@ -145,7 +145,20 @@ assert out.getbuffer().nbytes > 0
 
 Например, вы преобразуете в pdf следующий текст markdown:
 
-![Markdown plantuml](img/md_plantuml.jpg)
+````markdown
+# Title plantuml
+
+Document with plantuml code.
+
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
+
+End of document
+````
 
 Без использования плагина вы получите следующий результат в pdf:
 
