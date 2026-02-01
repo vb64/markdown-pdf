@@ -14,6 +14,21 @@ Bob --> Alice: Hi!
 """
 
 
+class MockPlantUML:
+    """Mocked PlantUML class."""
+
+    def __init__(self, url=''):
+        """Make new instance."""
+        self.url = url
+
+    def processes(self, _text):
+        """Emulate call."""
+        if not self.url.startswith('http://'):
+            raise PlantUMLConnectionError("Only absolute URIs are allowed.")
+
+        return open("fixture/plantuml.png", "rb").read()
+
+
 class TesPlantuml(TestPlugin):
     """Plantuml content."""
 
@@ -30,6 +45,9 @@ class TesPlantuml(TestPlugin):
         from markdown_pdf.pligins import get_plugin_chunks, Plugin
         from markdown_pdf.pligins import plantuml
 
+        saved = plantuml.PlantUML
+        plantuml.PlantUML = MockPlantUML
+
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         text = get_plugin_chunks(Plugin.Plantuml, text)[0]
         temp_files = []
@@ -45,3 +63,5 @@ class TesPlantuml(TestPlugin):
         params['url'] = 'http://www.plantuml.com/plantuml/img/'
         chunk = plantuml.handler(params, text, temp_files)
         assert ".png" in chunk
+
+        plantuml.PlantUML = saved
