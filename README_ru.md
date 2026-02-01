@@ -153,7 +153,7 @@ assert out.getbuffer().nbytes > 0
 
 Вы можете использовать плагин для рендеринга кода plantuml в изображение.
 
-```python
+````python
 from markdown_pdf import MarkdownPdf, Section
 from markdown_pdf.pligins import Plugin
 
@@ -161,12 +161,12 @@ plantuml_text = """# Title plantuml
 
 Document with plantuml code.
 
- ```plantuml
- @startuml
- Alice -> Bob: Hello Bob
- Bob --> Alice: Hi!
- @enduml
- ```
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
 
 End of document
 """
@@ -178,7 +178,7 @@ plugins = {
 pdf = MarkdownPdf(plugins=plugins)
 pdf.add_section(Section(plantuml_text))
 pdf.save("plantuml.pdf")
-```
+````
 
 В этом случае плагин передаст помеченный как `plantuml` код на указанный сервер в сети интернет
 и заменит текст кода на изображение, которое создаст сервер `www.plantuml.com`.
