@@ -1,5 +1,5 @@
 """Plugins."""
-from .plantuml import handler as plantuml
+from .plantuml import handler as plantuml_handler
 
 
 class Plugin:
@@ -9,7 +9,7 @@ class Plugin:
 
 
 PLUGINS = {
-  Plugin.Plantuml: plantuml,
+  Plugin.Plantuml: plantuml_handler,
 }
 
 
