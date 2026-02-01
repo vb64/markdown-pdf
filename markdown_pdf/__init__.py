@@ -113,7 +113,7 @@ class MarkdownPdf:
         if not self.plugins:
             return text
 
-        text = '\n'.join([i.strip() for i in text.splitlines()])
+        text = '\n'.join(text.splitlines())
         for key, val in self.plugins.items():
             for chunk in get_plugin_chunks(key, text):
                 text = text.replace(chunk, PLUGINS[key](val, chunk, self.temp_files))

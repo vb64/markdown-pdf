@@ -12,6 +12,7 @@
 - Использовать разные размеры страниц внутри одного pdf
 - Создавать таблицы в `markdown`
 - Использовать кликабельные гиперссылки. Спасибо [@thongtmtrust](https://github.com/thongtmtrust) за идеи и сотрудничество!
+- Использовать плагин для контента plantuml
 
 Модуль использует функции двух замечательных библиотек.
 
@@ -137,6 +138,67 @@ assert out.getbuffer().nbytes > 0
 - `author`: ""
 - `subject`: ""
 - `keywords`: ""
+
+## Плагины
+
+Модуль позволяет обрабатывать специально помеченные разделы кода при помощи плагинов.
+
+Например, вы преобразуете в pdf следующий текст markdown:
+
+````markdown
+# Title plantuml
+
+Document with plantuml code.
+
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
+
+End of document
+````
+
+Без использования плагина вы получите следующий результат в pdf:
+
+![Without plantuml.jpg](img/without_plantuml.jpg)
+
+Вы можете использовать плагин для рендеринга кода plantuml в изображение.
+
+````python
+from markdown_pdf import MarkdownPdf, Section
+from markdown_pdf.pligins import Plugin
+
+plantuml_text = """# Title plantuml
+
+Document with plantuml code.
+
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
+
+End of document
+"""
+
+plugins = {
+  Plugin.Plantuml: {'url': 'http://www.plantuml.com/plantuml/img/'}
+}
+
+pdf = MarkdownPdf(plugins=plugins)
+pdf.add_section(Section(plantuml_text))
+pdf.save("plantuml.pdf")
+````
+
+В этом случае плагин передаст помеченный как `plantuml` код на указанный сервер в сети интернет
+и заменит текст кода на изображение, которое создаст сервер `www.plantuml.com`.
+
+В созданном файле `plantuml.pdf` вы получите следующий результат:
+
+![With plantuml.jpg](img/with_plantuml.jpg)
 
 ## Пример
 
