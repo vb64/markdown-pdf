@@ -1,4 +1,5 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
+import os
 import io
 import typing
 import pathlib
@@ -11,6 +12,13 @@ from pymupdf import (
 from .pligins import PLUGINS, get_plugin_chunks
 
 MM_2_PT = 2.835
+
+
+def clear_temp_files(files):
+    """Remove temp files from given list."""
+    for i in files:
+        if os.path.exists(i):
+            os.remove(i)
 
 
 class Section:
@@ -102,6 +110,10 @@ class MarkdownPdf:
 
     def apply_plugins(self, text):
         """Return modified text according plugins settings."""
+        if not self.plugins:
+            return text
+
+        text = '\n'.join([i.strip() for i in text.splitlines()])
         for key, val in self.plugins.items():
             for chunk in get_plugin_chunks(key, text):
                 text = text.replace(chunk, PLUGINS[key](val, chunk, self.temp_files))
@@ -143,6 +155,7 @@ class MarkdownPdf:
         else:
             doc.save(file_name)
         doc.close()
+        clear_temp_files(self.temp_files)
 
     def save_bytes(self, bytesio: io.BytesIO) -> int:
         """Save pdf to file-like object and return byte size of the filled object."""
@@ -178,5 +191,6 @@ class MarkdownPdf:
         out = JM_new_output_fileptr(bytesio)
         mupdf.pdf_write_document(pdf, out, opts)
         out.fz_close_output()
+        clear_temp_files(self.temp_files)
 
         return bytesio.getbuffer().nbytes

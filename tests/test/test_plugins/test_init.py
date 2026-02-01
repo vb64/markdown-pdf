@@ -21,13 +21,13 @@ class TestInit(TestPlugin):
         pdf.save(self.build("plantuml.pdf"))
 
         plugins = {
-          Plugin.Plantuml: {'url': 'www'}
+          Plugin.Plantuml: {'url': 'http://www.plantuml.com/plantuml/img/'}
         }
         pdf = MarkdownPdf(plugins=plugins)
         assert Plugin.Plantuml in pdf.plugins
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         html = pdf.add_section(Section(text))
-        assert "@startuml" in html
+        assert "@startuml" not in html
 
     def test_get_plugin_chunks(self):
         """Check get_plugin_chunks function."""
