@@ -4,7 +4,7 @@ make test T=test_plugins/test_plantuml.py
 """
 import pytest
 from plantuml import PlantUML, PlantUMLConnectionError
-from . import TestPlugin
+from . import TestPlugin, MockPlantUML
 
 UML_CODE = """
 @startuml
@@ -12,21 +12,6 @@ Alice -> Bob: Hello Bob
 Bob --> Alice: Hi!
 @enduml
 """
-
-
-class MockPlantUML:
-    """Mocked PlantUML class."""
-
-    def __init__(self, url=''):
-        """Make new instance."""
-        self.url = url
-
-    def processes(self, _text):
-        """Emulate call."""
-        if not self.url.startswith('http://'):
-            raise PlantUMLConnectionError("Only absolute URIs are allowed.")
-
-        return open("fixture/plantuml.png", "rb").read()
 
 
 class TesPlantuml(TestPlugin):
