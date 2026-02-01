@@ -161,12 +161,12 @@ plantuml_text = """# Title plantuml
 
 Document with plantuml code.
 
-```plantuml
-@startuml
-Alice -> Bob: Hello Bob
-Bob --> Alice: Hi!
-@enduml
-```
+ ```plantuml
+ @startuml
+ Alice -> Bob: Hello Bob
+ Bob --> Alice: Hi!
+ @enduml
+ ```
 
 End of document
 """
