@@ -1,4 +1,5 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
+import os
 import io
 import typing
 import pathlib
@@ -8,8 +9,16 @@ from markdown_it import MarkdownIt
 from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
+from .pligins import PLUGINS, get_plugin_chunks
 
 MM_2_PT = 2.835
+
+
+def clear_temp_files(files):
+    """Remove temp files from given list."""
+    for i in files:
+        if os.path.exists(i):
+            os.remove(i)
 
 
 class Section:
@@ -56,10 +65,18 @@ class MarkdownPdf:
       "keywords": None,
     }
 
-    def __init__(self, toc_level: int = 6, mode: str = 'commonmark', optimize: bool = False):
+    def __init__(
+      self,
+      toc_level: int = 6,
+      mode: str = 'commonmark',
+      optimize: bool = False,
+      plugins: typing.Optional[dict] = None
+    ):
         """Create md -> pdf converter with given TOC level and mode of md parsing."""
         self.toc_level = toc_level
         self.toc = []
+        self.plugins = plugins or {}
+        self.temp_files = []
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
@@ -91,10 +108,22 @@ class MarkdownPdf:
                 elpos.rect[1],  # top of written rectangle (use for TOC)
             ))
 
+    def apply_plugins(self, text):
+        """Return modified text according plugins settings."""
+        if not self.plugins:
+            return text
+
+        text = '\n'.join([i.strip() for i in text.splitlines()])
+        for key, val in self.plugins.items():
+            for chunk in get_plugin_chunks(key, text):
+                text = text.replace(chunk, PLUGINS[key](val, chunk, self.temp_files))
+
+        return text
+
     def add_section(self, section: Section, user_css: typing.Optional[str] = None) -> str:
         """Add markdown section to pdf."""
         where = section.rect + section.borders
-        html = self.m_d.render(section.text)
+        html = self.m_d.render(self.apply_plugins(section.text))
         story = fitz.Story(html=html, archive=section.root, user_css=user_css)
         more = 1
         while more:  # loop outputting the story
@@ -126,6 +155,7 @@ class MarkdownPdf:
         else:
             doc.save(file_name)
         doc.close()
+        clear_temp_files(self.temp_files)
 
     def save_bytes(self, bytesio: io.BytesIO) -> int:
         """Save pdf to file-like object and return byte size of the filled object."""
@@ -161,5 +191,6 @@ class MarkdownPdf:
         out = JM_new_output_fileptr(bytesio)
         mupdf.pdf_write_document(pdf, out, opts)
         out.fz_close_output()
+        clear_temp_files(self.temp_files)
 
         return bytesio.getbuffer().nbytes

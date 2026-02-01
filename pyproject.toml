@@ -23,7 +23,9 @@ classifiers = [
 dependencies = [
     "PyMuPDF==1.24.6; python_version<'3.9'",
     "PyMuPDF>=1.25.3; python_version>'3.8'",
-    "markdown-it-py==3.0.0; python_version>='3.8'"
+    "markdown-it-py==3.0.0; python_version>='3.8'",
+    "plantuml==0.3.0",
+    "six==1.17.0"
 ]
 
 [project.optional-dependencies]
