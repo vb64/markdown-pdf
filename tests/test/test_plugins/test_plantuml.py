@@ -27,20 +27,21 @@ class TesPlantuml(TestPlugin):
 
     def test_handler(self):
         """Check handler function."""
-        from markdown_pdf.pligins import get_plugin_chunks, Plugin, plantuml
+        from markdown_pdf.pligins import get_plugin_chunks, Plugin
+        from markdown_pdf.pligins.plantuml import handler
 
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         text = get_plugin_chunks(Plugin.Plantuml, text)[0]
         temp_files = []
         params = {}
-        chunk = plantuml(params, text, temp_files)
+        chunk = handler(params, text, temp_files)
         assert "No value for 'url'" in chunk
 
         params = {'url': 'www'}
         with pytest.raises(PlantUMLConnectionError) as exp:
-            plantuml(params, text, temp_files)
+            handler(params, text, temp_files)
         assert "Only absolute URIs are allowed." in str(exp)
 
         params['url'] = 'http://www.plantuml.com/plantuml/img/'
-        chunk = plantuml(params, text, temp_files)
-        print(chunk)
+        chunk = handler(params, text, temp_files)
+        assert ".png" in chunk
