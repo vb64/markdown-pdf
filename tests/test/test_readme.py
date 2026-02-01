@@ -75,3 +75,33 @@ A lot more text here
         pdf = MarkdownPdf(toc_level=2, optimize=True)
         pdf.add_section(Section(document_text_2, toc=False))
         pdf.save(self.build("rendered2.pdf"))
+
+    def _test_plantuml_plugin(self):
+        """Test README.md plantuml plugin example code."""
+        from markdown_pdf import MarkdownPdf, Section
+        from markdown_pdf.pligins import Plugin
+
+        plantuml_text = """
+# Title plantuml
+
+Document with plantuml code.
+
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
+
+End of document
+"""
+
+        plugins = {
+          Plugin.Plantuml: {
+            'url': 'http://www.plantuml.com/plantuml/img/'
+          }
+        }
+
+        pdf = MarkdownPdf(plugins=plugins)
+        pdf.add_section(Section(plantuml_text))
+        pdf.save(self.build("with_plantuml.pdf"))

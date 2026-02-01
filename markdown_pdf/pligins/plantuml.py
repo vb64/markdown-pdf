@@ -1,4 +1,5 @@
 """Plantunl plugin."""
+import os
 import tempfile
 from plantuml import PlantUML
 
@@ -15,8 +16,11 @@ def handler(params_dict, text, temp_files):
     file_name = ''
 
     with tempfile.NamedTemporaryFile(mode='wb', delete=False, suffix=".png") as tmp_file:
-        file_name = tmp_file.name
-        temp_files.append(file_name)
-        tmp_file.write(image)
+        file_name = os.path.basename(tmp_file.name)
+        temp_files.append(tmp_file.name)
 
-    return "\n![Image]({})\n".format(file_name)
+    with open(file_name, mode='wb') as out:
+        temp_files.append(file_name)
+        out.write(image)
+
+    return "\n![PlantUML scheme]({})\n".format(file_name)
