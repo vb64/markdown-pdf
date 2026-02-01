@@ -8,7 +8,7 @@ from markdown_it import MarkdownIt
 from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
-from .pligins import Plugin, PLUGINS, get_plugin_chunks
+from .pligins import PLUGINS, get_plugin_chunks
 
 MM_2_PT = 2.835
 
@@ -62,16 +62,13 @@ class MarkdownPdf:
       toc_level: int = 6,
       mode: str = 'commonmark',
       optimize: bool = False,
-      ext_plantuml: typing.Optional[str] = None
+      plugins: typing.Optional[dict] = None
     ):
         """Create md -> pdf converter with given TOC level and mode of md parsing."""
         self.toc_level = toc_level
         self.toc = []
-        self.plugins = {}
+        self.plugins = plugins or {}
         self.temp_files = []
-
-        if ext_plantuml:
-            self.plugins[Plugin.Plantuml] = ext_plantuml
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start

@@ -20,7 +20,10 @@ class TestInit(TestPlugin):
         assert "@startuml" in html
         pdf.save(self.build("plantuml.pdf"))
 
-        pdf = MarkdownPdf(ext_plantuml="www")
+        plugins = {
+          Plugin.Plantuml: {'url': 'www'}
+        }
+        pdf = MarkdownPdf(plugins=plugins)
         assert Plugin.Plantuml in pdf.plugins
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         html = pdf.add_section(Section(text))
