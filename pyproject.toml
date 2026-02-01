@@ -11,13 +11,12 @@ version = "1.11"
 description = "Markdown to pdf renderer"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.8"
-license = { text = "GNU Affero General Public License v3" }
+license = "AGPL-3.0-only"
 authors = [
     { name = "Vitaly Bogomolov", email = "mail@vitaly-bogomolov.ru" }
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent"
 ]
 dependencies = [
@@ -43,7 +42,7 @@ dev = [
 "Bug Tracker" = "https://github.com/vb64/markdown-pdf/issues"
 
 [tool.setuptools]
-packages = ["markdown_pdf"]
+packages = ["markdown_pdf", "markdown_pdf.pligins"]
 
 [tool.setuptools.package-data]
 "markdown_pdf" = ["py.typed"]
