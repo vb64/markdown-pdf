@@ -148,7 +148,7 @@ The following document properties are available for assignment (dictionary `Mark
 
 ## Plugins
 
-The module supports the concept of plugins that allow for special processing of marked code sections.
+The module allows you to process specially marked sections of code using plugins.
 
 For example, you convert the following Markdown text to PDF:
 
