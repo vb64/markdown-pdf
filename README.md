@@ -152,7 +152,20 @@ The module supports the concept of plugins that allow for special processing of 
 
 For example, you convert the following Markdown text to PDF:
 
-![Markdown plantuml](img/md_plantuml.jpg)
+````markdown
+# Title plantuml
+
+Document with plantuml code.
+
+```plantuml
+@startuml
+Alice -> Bob: Hello Bob
+Bob --> Alice: Hi!
+@enduml
+```
+
+End of document
+````
 
 Without using the plugin, you will get the following result in pdf:
 
