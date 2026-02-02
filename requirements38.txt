@@ -1,0 +1,10 @@
+PyMuPDF==1.24.6
+markdown-it-py==3.0.0
+plantuml==0.3.0
+six==1.17.0
+flake8
+pylint
+pydocstyle
+pytest
+pytest-cov
+codacy-coverage
