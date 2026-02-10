@@ -54,3 +54,6 @@ filterwarnings = [
     'ignore:builtin type SwigPyObject has no __module__ attribute:DeprecationWarning',
     'ignore:builtin type SwigPyPacked has no __module__ attribute:DeprecationWarning',
 ]
+markers = [
+    'external: marks a test as uses external resources'
+]

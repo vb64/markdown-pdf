@@ -48,7 +48,7 @@ jobs:
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       run: |
-        pytest --cov=markdown_pdf --cov-report xml --cov-report term:skip-covered --durations=5 tests
+        pytest -m "not external" --cov=markdown_pdf --cov-report xml --cov-report term:skip-covered --durations=5 tests
         if [ "$CODACY_PROJECT_TOKEN" != "" ]; then
           python-codacy-coverage -r coverage.xml
         fi
@@ -84,4 +84,4 @@ jobs:
 
     - name: pytest
       run: |
-        pytest --cov=markdown_pdf --cov-report xml --cov-report term:skip-covered --durations=5 tests
+        pytest -m "not external" --cov=markdown_pdf --cov-report xml --cov-report term:skip-covered --durations=5 tests

@@ -17,7 +17,8 @@ Bob --> Alice: Hi!
 class TesPlantuml(TestPlugin):
     """Plantuml content."""
 
-    def _test_www(self):
+    @pytest.mark.external
+    def test_www(self):
         """Make image for plantuml content."""
         server = PlantUML(url='http://www.plantuml.com/plantuml/img/')
         image = server.processes(UML_CODE)
