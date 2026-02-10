@@ -36,7 +36,7 @@ pep257:
 	$(PYTHON) -m pydocstyle $(SOURCE)
 
 tests: flake8 pep257 lint
-	$(PYTEST) --durations=5 $(TESTS)
+	$(PYTEST) -m "not external" --durations=5 $(TESTS)
 	$(COVERAGE) html --skip-covered
 
 example:

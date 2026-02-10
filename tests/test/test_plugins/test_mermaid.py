@@ -4,6 +4,7 @@ make test T=test_plugins/test_mermaid.py
 """
 import base64
 import requests
+import pytest
 
 from . import TestPlugin
 
@@ -22,6 +23,7 @@ stateDiagram-v2
 class TesMermaid(TestPlugin):
     """Mermaid content."""
 
+    @pytest.mark.external
     def test_www(self):
         """Make image for mermaid content."""
         # https://github.com/ouhammmourachid/mermaid-py
