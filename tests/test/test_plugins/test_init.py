@@ -42,3 +42,17 @@ class TestInit(TestPlugin):
 
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         assert len(get_plugin_chunks(Plugin.Plantuml, text)) == 2
+
+    def test_temp_files(self):
+        """Check temp_files class."""
+        from markdown_pdf.pligins import TempFiles
+
+        files = TempFiles()
+        files.name_list = [
+          self.build('tmp1.png'),
+          self.build('tmp2.png'),
+        ]
+        with open(files.name_list[0], 'wb') as out:
+            out.write(b'0')
+
+        assert files.clean() is None

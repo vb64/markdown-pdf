@@ -1,37 +1,16 @@
 """Markdown to pdf converter based on markdown_it and fitz."""
-import os
 import io
 import typing
 import pathlib
-import uuid
 
 import fitz
 from markdown_it import MarkdownIt
 from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
 )
-from .pligins import PLUGINS, get_plugin_chunks
+from .pligins import PLUGINS, get_plugin_chunks, TempFiles
 
 MM_2_PT = 2.835
-
-
-class TempFiles:
-    """Temp files for plugins."""
-
-    def __init__(self):
-        """Init empty list."""
-        self.name_list = []
-
-    def new_name(self, ext=None):
-        """Return file name with given extension."""
-        self.name_list.append(str(uuid.uuid4()) + ".{}".format(ext) if ext else '')
-        return self.name_list[-1]
-
-    def clean(self):
-        """Remove temp files."""
-        for i in self.name_list:
-            if os.path.exists(i):
-                os.remove(i)
 
 
 class Section:
