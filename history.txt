@@ -3,6 +3,8 @@
 
 + Defaults for plantuml plugin.
 
++ Documentation for plugins.
+
 01.02.2026 ver.1.11
 -------------------
 
