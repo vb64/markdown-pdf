@@ -38,3 +38,18 @@ class TesMermaid(TestPlugin):
         assert len(response.content) > 0
         with open(self.build("test_mermaid.png"), "wb") as out:
             out.write(response.content)
+
+    @pytest.mark.external
+    def test_plugin_use(self):
+        """Make pdf with image for mermaid content."""
+        from markdown_pdf import MarkdownPdf, Section
+        from markdown_pdf.pligins import Plugin
+
+        text = open(self.fixture("mermaid.md"), "rt", encoding='utf-8').read()
+        plugins = {
+          Plugin.Mermaid: {'url': 'https://mermaid.ink/img/'}
+        }
+
+        pdf = MarkdownPdf(plugins=plugins)
+        pdf.add_section(Section(text))
+        pdf.save(self.build("test_mermaid.pdf"))
