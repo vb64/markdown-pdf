@@ -16,6 +16,7 @@ stateDiagram-v2
 Mermaid code as image.
 
 ```mermaid
+stateDiagram-v2
     [*] --> Still
     Still --> [*]
 

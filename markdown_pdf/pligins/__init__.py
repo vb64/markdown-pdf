@@ -3,6 +3,7 @@ import os
 import uuid
 
 from .plantuml import handler as plantuml_handler
+from .mermaid import handler as mermaid_handler
 
 PLUGINS = {}
 
@@ -11,6 +12,7 @@ class Plugin:
     """Available plugins."""
 
     Plantuml = "plantuml"
+    Mermaid = "mermaid"
 
 
 class TempFiles:
@@ -32,7 +34,7 @@ class TempFiles:
                 os.remove(i)
 
 
-def register_plugin(key, handler):
+def register(key, handler):
     """Register plugin as available."""
     PLUGINS[key] = handler
 
@@ -56,4 +58,5 @@ def get_plugin_chunks(key, text):
     return chunks
 
 
-register_plugin(Plugin.Plantuml, plantuml_handler)
+register(Plugin.Plantuml, plantuml_handler)
+register(Plugin.Mermaid, mermaid_handler)
