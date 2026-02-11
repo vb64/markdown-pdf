@@ -1,7 +1,10 @@
 """Plugins."""
 import os
 import uuid
+
 from .plantuml import handler as plantuml_handler
+
+PLUGINS = {}
 
 
 class Plugin:
@@ -29,9 +32,9 @@ class TempFiles:
                 os.remove(i)
 
 
-PLUGINS = {
-  Plugin.Plantuml: plantuml_handler,
-}
+def register_plugin(key, handler):
+    """Register plugin as available."""
+    PLUGINS[key] = handler
 
 
 def get_plugin_chunks(key, text):
@@ -51,3 +54,6 @@ def get_plugin_chunks(key, text):
             chunk.append(line)
 
     return chunks
+
+
+register_plugin(Plugin.Plantuml, plantuml_handler)
