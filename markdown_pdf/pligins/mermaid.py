@@ -5,9 +5,9 @@ import requests
 
 def handler(params_dict, text, temp_files):
     """Translate mermaid marked text to png image."""
-    url = params_dict.get("url")
-    if not url:
-        return "No value for 'url' key in mermaid plugin parameters: {}".format(params_dict)
+    url = 'https://mermaid.ink/img/'
+    if params_dict and ("url" in params_dict):
+        url = params_dict.get("url")
 
     text = '\n'.join(text.splitlines()[1:-1])
     response = requests.get(
@@ -19,8 +19,8 @@ def handler(params_dict, text, temp_files):
       timeout=5
     )
 
-    file_name = temp_files.new_name("png")
+    file_name = temp_files.new_name(ext="png")
     with open(file_name, mode='wb') as out:
         out.write(response.content)
 
-    return "\n![Mermaid scheme]({})\n".format(file_name)
+    return "\n![Mermaid image]({})\n".format(file_name)

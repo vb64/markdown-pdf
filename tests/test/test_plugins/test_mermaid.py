@@ -47,7 +47,7 @@ class TesMermaid(TestPlugin):
 
         text = open(self.fixture("mermaid.md"), "rt", encoding='utf-8').read()
         plugins = {
-          Plugin.Mermaid: {'url': 'https://mermaid.ink/img/'}
+          Plugin.Mermaid: None
         }
 
         pdf = MarkdownPdf(plugins=plugins)
