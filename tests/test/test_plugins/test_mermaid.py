@@ -64,6 +64,7 @@ class TesMermaid(TestPlugin):
         temp_files = TempFiles()
 
         assert '[Mermaid image]' in mermaid.handler(None, "", temp_files)
+        assert '[Mermaid image]' in mermaid.handler({'url': 'www'}, "", temp_files)
 
         temp_files.clean()
         mermaid.requests = saved
