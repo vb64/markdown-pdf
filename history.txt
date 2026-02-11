@@ -1,6 +1,8 @@
 
 + Plugin for mermaid code.
 
++ Defaults for plantuml plugin.
+
 01.02.2026 ver.1.11
 -------------------
 
