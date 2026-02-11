@@ -10,7 +10,7 @@ class TestInit(TestPlugin):
 
     def test_md(self):
         """Process md with plantuml content."""
-        from markdown_pdf import Section, MarkdownPdf, clear_temp_files
+        from markdown_pdf import Section, MarkdownPdf
         from markdown_pdf.pligins import Plugin
         from markdown_pdf.pligins import plantuml
 
@@ -32,7 +32,7 @@ class TestInit(TestPlugin):
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         html = pdf.add_section(Section(text))
         assert "@startuml" not in html
-        clear_temp_files(pdf.temp_files)
+        pdf.temp_files.clean()
 
         plantuml.PlantUML = saved
 

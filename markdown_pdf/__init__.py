@@ -3,6 +3,7 @@ import os
 import io
 import typing
 import pathlib
+import uuid
 
 import fitz
 from markdown_it import MarkdownIt
@@ -14,11 +15,23 @@ from .pligins import PLUGINS, get_plugin_chunks
 MM_2_PT = 2.835
 
 
-def clear_temp_files(files):
-    """Remove temp files from given list."""
-    for i in files:
-        if os.path.exists(i):
-            os.remove(i)
+class TempFiles:
+    """Temp files for plugins."""
+
+    def __init__(self):
+        """Init empty list."""
+        self.name_list = []
+
+    def new_name(self, ext=None):
+        """Return file name with given extension."""
+        self.name_list.append(str(uuid.uuid4()) + ".{}".format(ext) if ext else '')
+        return self.name_list[-1]
+
+    def clean(self):
+        """Remove temp files."""
+        for i in self.name_list:
+            if os.path.exists(i):
+                os.remove(i)
 
 
 class Section:
@@ -76,7 +89,7 @@ class MarkdownPdf:
         self.toc_level = toc_level
         self.toc = []
         self.plugins = plugins or {}
-        self.temp_files = []
+        self.temp_files = TempFiles()
 
         # zero, commonmark, js-default, gfm-like
         # https://markdown-it-py.readthedocs.io/en/latest/using.html#quick-start
@@ -155,7 +168,7 @@ class MarkdownPdf:
         else:
             doc.save(file_name)
         doc.close()
-        clear_temp_files(self.temp_files)
+        self.temp_files.clean()
 
     def save_bytes(self, bytesio: io.BytesIO) -> int:
         """Save pdf to file-like object and return byte size of the filled object."""
@@ -191,6 +204,6 @@ class MarkdownPdf:
         out = JM_new_output_fileptr(bytesio)
         mupdf.pdf_write_document(pdf, out, opts)
         out.fz_close_output()
-        clear_temp_files(self.temp_files)
+        self.temp_files.clean()
 
         return bytesio.getbuffer().nbytes
