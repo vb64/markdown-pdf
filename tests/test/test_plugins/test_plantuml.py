@@ -28,7 +28,7 @@ class TesPlantuml(TestPlugin):
 
     def test_handler(self):
         """Check handler function."""
-        from markdown_pdf import clear_temp_files
+        from markdown_pdf import TempFiles
         from markdown_pdf.pligins import get_plugin_chunks, Plugin
         from markdown_pdf.pligins import plantuml
 
@@ -37,7 +37,7 @@ class TesPlantuml(TestPlugin):
 
         text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
         text = get_plugin_chunks(Plugin.Plantuml, text)[0]
-        temp_files = []
+        temp_files = TempFiles()
         params = {}
         chunk = plantuml.handler(params, text, temp_files)
         assert "No value for 'url'" in chunk
@@ -50,6 +50,6 @@ class TesPlantuml(TestPlugin):
         params['url'] = 'http://www.plantuml.com/plantuml/img/'
         chunk = plantuml.handler(params, text, temp_files)
         assert ".png" in chunk
-        clear_temp_files(temp_files)
+        temp_files.clean()
 
         plantuml.PlantUML = saved

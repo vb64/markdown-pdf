@@ -112,16 +112,3 @@ class TestConverter(TestBase):
         with pytest.raises(TypeError) as err:
             Section("Title", paper_size=111)
         assert 'paper_size must be' in str(err.value)
-
-    def test_clear_temp_files(self):
-        """Check clear_temp_files function."""
-        from markdown_pdf import clear_temp_files
-
-        files = [
-          self.build('tmp1.png'),
-          self.build('tmp2.png'),
-        ]
-        with open(files[0], 'wb') as out:
-            out.write(b'0')
-
-        assert clear_temp_files(files) is None

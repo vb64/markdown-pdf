@@ -1,4 +1,6 @@
 """Plugins."""
+import os
+import uuid
 from .plantuml import handler as plantuml_handler
 
 
@@ -6,6 +8,25 @@ class Plugin:
     """Available plugins."""
 
     Plantuml = "plantuml"
+
+
+class TempFiles:
+    """Temp files for plugins."""
+
+    def __init__(self):
+        """Init empty list."""
+        self.name_list = []
+
+    def new_name(self, ext=None):
+        """Return file name with given extension."""
+        self.name_list.append(str(uuid.uuid4()) + ".{}".format(ext) if ext else '')
+        return self.name_list[-1]
+
+    def clean(self):
+        """Remove temp files."""
+        for i in self.name_list:
+            if os.path.exists(i):
+                os.remove(i)
 
 
 PLUGINS = {
