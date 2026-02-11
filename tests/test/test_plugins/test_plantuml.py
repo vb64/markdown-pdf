@@ -26,6 +26,21 @@ class TesPlantuml(TestPlugin):
         with open(self.build("test_plantuml.png"), "wb") as out:
             out.write(image)
 
+    @pytest.mark.external
+    def test_plugin_use(self):
+        """Make pdf with image for plantuml content."""
+        from markdown_pdf import MarkdownPdf, Section
+        from markdown_pdf.pligins import Plugin
+
+        text = open(self.fixture("plantuml.md"), "rt", encoding='utf-8').read()
+        plugins = {
+          Plugin.Plantuml: {'url': 'http://www.plantuml.com/plantuml/img/'}
+        }
+
+        pdf = MarkdownPdf(plugins=plugins)
+        pdf.add_section(Section(text))
+        pdf.save(self.build("test_plantuml.pdf"))
+
     def test_handler(self):
         """Check handler function."""
         from markdown_pdf import TempFiles
