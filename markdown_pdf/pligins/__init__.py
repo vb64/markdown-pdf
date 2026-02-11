@@ -34,7 +34,7 @@ class TempFiles:
                 os.remove(i)
 
 
-def register_plugin(key, handler):
+def register(key, handler):
     """Register plugin as available."""
     PLUGINS[key] = handler
 
@@ -58,5 +58,5 @@ def get_plugin_chunks(key, text):
     return chunks
 
 
-register_plugin(Plugin.Plantuml, plantuml_handler)
-register_plugin(Plugin.Mermaid, mermaid_handler)
+register(Plugin.Plantuml, plantuml_handler)
+register(Plugin.Mermaid, mermaid_handler)
