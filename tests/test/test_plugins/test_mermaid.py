@@ -6,7 +6,7 @@ import base64
 import requests
 import pytest
 
-from . import TestPlugin
+from . import TestPlugin, MockRequsts
 
 MERMAID_CODE = """
 stateDiagram-v2
@@ -53,3 +53,17 @@ class TesMermaid(TestPlugin):
         pdf = MarkdownPdf(plugins=plugins)
         pdf.add_section(Section(text))
         pdf.save(self.build("test_mermaid.pdf"))
+
+    def test_handler(self):
+        """Check plugin handler."""
+        from markdown_pdf.pligins import TempFiles, mermaid
+
+        saved = mermaid.requests
+        mermaid.requests = MockRequsts(content_from=self.fixture("mermaid.png"))
+
+        temp_files = TempFiles()
+
+        assert '[Mermaid image]' in mermaid.handler(None, "", temp_files)
+
+        temp_files.clean()
+        mermaid.requests = saved
