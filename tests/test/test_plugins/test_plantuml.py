@@ -55,7 +55,7 @@ class TesPlantuml(TestPlugin):
         temp_files = TempFiles()
         params = {}
         chunk = plantuml.handler(params, text, temp_files)
-        assert "No value for 'url'" in chunk
+        assert "[PlantUML image]" in chunk
 
         params = {'url': 'www'}
         with pytest.raises(PlantUMLConnectionError) as exp:
