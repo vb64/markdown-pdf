@@ -1,3 +1,5 @@
+12.02.2026 ver.1.12
+-------------------
 
 + Plugin for mermaid code.
 
