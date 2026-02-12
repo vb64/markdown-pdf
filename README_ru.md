@@ -200,6 +200,8 @@ pdf.save("plantuml.pdf")
 
 ![With plantuml.jpg](img/with_plantuml.jpg)
 
+Вы можете ознакомиться с более подробным [описанием плагинов](plugins_ru.md).
+
 ## Пример
 
 В качестве примера вы можете загрузить созданный из этого md файла [pdf файл](examples/markdown_pdf_ru.pdf).

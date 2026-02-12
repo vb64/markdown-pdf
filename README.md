@@ -207,6 +207,8 @@ In the created file `plantuml.pdf`, you will see the following result:
 
 ![With plantuml.jpg](img/with_plantuml.jpg)
 
+You can find a more detailed description of the plugins [here](plugins.md).
+
 ## Example
 
 As an example, you can download the [pdf file](examples/markdown_pdf.pdf) created from this md file.
