@@ -18,7 +18,7 @@ When creating a PDF file you can:
 - Use different page sizes within single pdf
 - Create tables in `markdown`
 - Use clickable hyperlinks. Thanks a lot [@thongtmtrust](https://github.com/thongtmtrust) for ideas and collaboration.
-- Render plantuml and mermaid code to pdf images with [plugins](pligins.md).
+- Render plantuml and mermaid code to pdf images with [plugins](plugins.md).
 
 The module utilizes the functions of two great libraries.
 
