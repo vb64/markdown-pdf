@@ -11,7 +11,7 @@ The `plantuml` plugin replaces given code with an image of the corresponding dia
 
 Your `markdown` document contains the following code snippet.
 
-````
+````markdown
 ```plantuml
 @startuml
 Alice -> Bob: Hello Bob

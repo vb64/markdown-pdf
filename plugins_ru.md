@@ -48,7 +48,7 @@ pdf.save("plantuml.pdf")
 
 В вашем `markdown` документе имеется следующий фрагмент кода.
 
-````
+````markdown
 ```mermaid
 stateDiagram-v2
     [*] --> Still
