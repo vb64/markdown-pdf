@@ -11,7 +11,7 @@ Markdown-pdf может обрабатывать помеченный специ
 
 В вашем `markdown` документе имеется следующий фрагмент кода.
 
-````
+````markdown
 ```plantuml
 @startuml
 Alice -> Bob: Hello Bob
