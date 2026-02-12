@@ -1,1 +1,1 @@
-# Plagins
+# Plugins
