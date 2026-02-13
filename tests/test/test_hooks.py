@@ -1,7 +1,7 @@
 """Hook tests.
 
 https://pymupdf.readthedocs.io/en/latest/tutorial.html
-https://pymupdf.readthedocs.io/en/latest/the-basics.html#adding-a-watermark-to-a-pdf
+
 make test T=test_hooks.py
 """
 from . import TestBase
