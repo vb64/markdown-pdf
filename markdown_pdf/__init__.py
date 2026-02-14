@@ -120,16 +120,10 @@ class MarkdownPdf:
         more = 1
         while more:  # loop outputting the story
             self.page_num += 1
-            page = self.writer.begin_page(section.rect)
-
-            # https://pymupdf.readthedocs.io/en/latest/the-basics.html#adding-a-watermark-to-a-pdf
-            # insert an image watermark from a file name to fit the page bounds
-            # page.insert_image(page.bound(), filename="watermark.png", overlay=False)
-            # https://pypi.org/project/pypng/
-
+            device = self.writer.begin_page(section.rect)
             more, _ = story.place(where)  # layout into allowed rectangle
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
-            story.draw(page)
+            story.draw(device)
             self.writer.end_page()
 
         return html
