@@ -24,9 +24,8 @@ class TestHooks(TestBase):
         story = fitz.Story(html=html, archive=section.root)
 
         story.place(where)
-        # story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
-        page = pdf.writer.begin_page(section.rect)
-        story.draw(page)
+        device = pdf.writer.begin_page(section.rect)
+        story.draw(device)
         pdf.writer.end_page()
 
         fname = self.build('backcolor.pdf')
@@ -39,6 +38,6 @@ class TestHooks(TestBase):
         # https://pymupdf.readthedocs.io/en/latest/the-basics.html#adding-a-watermark-to-a-pdf
         # insert an image watermark from a file name to fit the page bounds
         page = doc[0]
-        page.insert_image(page.bound(), filename=self.fixture("plantuml.png"), overlay=False)
+        page.insert_image(page.bound(), filename=self.fixture("plantuml.png"), overlay=False, keep_proportion=False)
         # https://pypi.org/project/pypng/
         doc.save(self.build('backcolor1.pdf'))
