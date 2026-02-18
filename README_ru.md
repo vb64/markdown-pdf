@@ -43,6 +43,7 @@ from markdown_pdf import Section
 
 section = Section("# Title\n", toc=False)
 assert section.page_count == 0
+
 pdf.add_section(section)
 assert section.page_count == 1
 ```
