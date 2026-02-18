@@ -81,8 +81,10 @@ class TestConverter(TestBase):
         sect = Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
         assert sect.page_count == 0
         pdf = MarkdownPdf()
+        assert not pdf.sections
         pdf.add_section(sect)
         assert sect.page_count == 1
+        assert len(pdf.sections) == 1
 
         pdf.save(self.build("hrefs.pdf"))
 

@@ -1,5 +1,7 @@
 + Section.page_count contains number of pdf pages that has been generated for section after add_section call.
 
++ The `sections` property of the `MarkdownPdf` class contains a list of added sections in the order in which they were added.
+
 12.02.2026 ver.1.12
 -------------------
 
