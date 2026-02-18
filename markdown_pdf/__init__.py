@@ -28,6 +28,7 @@ class Section:
         self.text = text
         self.toc = toc
         self.root = root
+        self.page_count = 0
 
         self.paper_size = paper_size
         if isinstance(paper_size, str):
@@ -120,6 +121,7 @@ class MarkdownPdf:
         more = 1
         while more:  # loop outputting the story
             self.page_num += 1
+            section.page_count += 1
             device = self.writer.begin_page(section.rect)
             more, _ = story.place(where)  # layout into allowed rectangle
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
