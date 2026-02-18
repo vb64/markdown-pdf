@@ -43,6 +43,7 @@ from markdown_pdf import Section
 
 section = Section("# Title\n", toc=False)
 assert section.page_count == 0
+
 pdf.add_section(section)
 assert section.page_count == 1
 ```
@@ -93,6 +94,12 @@ text = """# Section with Table
 css = "table, th, td {border: 1px solid black;}"
 
 pdf.add_section(Section(text), user_css=css)
+```
+
+Свойство `sections` кдасса `MarkdownPdf` содержит список секций в том порядке, в котором их добавляли.
+
+```python
+assert len(pdf.sections) > 1
 ```
 
 Устанавливаем свойства pdf документа.

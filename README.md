@@ -101,6 +101,12 @@ css = "table, th, td {border: 1px solid black;}"
 pdf.add_section(Section(text), user_css=css)
 ```
 
+The `sections` property of the `MarkdownPdf` class contains a list of added sections in the order in which they were added.
+
+```python
+assert len(pdf.sections) > 1
+```
+
 Set the properties of the pdf document.
 
 ```python
