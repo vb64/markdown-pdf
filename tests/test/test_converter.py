@@ -78,10 +78,12 @@ class TestConverter(TestBase):
         """Convert hrefs content to pdf."""
         from markdown_pdf import Section, MarkdownPdf
 
+        sect = Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
+        assert sect.page_count == 0
         pdf = MarkdownPdf()
-        pdf.add_section(
-          Section(open(self.fixture("hrefs.md"), "rt", encoding='utf-8').read())
-        )
+        pdf.add_section(sect)
+        assert sect.page_count == 1
+
         pdf.save(self.build("hrefs.pdf"))
 
     def test_bytes(self):
