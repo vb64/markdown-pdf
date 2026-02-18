@@ -20,7 +20,7 @@ classifiers = [
     "Operating System :: OS Independent"
 ]
 dependencies = [
-    "PyMuPDF==1.24.6; python_version<'3.9'",
+    "PyMuPDF==1.24.11; python_version<'3.9'",
     "PyMuPDF>=1.25.3; python_version>'3.8'",
     "markdown-it-py==3.0.0; python_version>='3.8'",
     "requests==2.32.3; python_version<'3.9'",

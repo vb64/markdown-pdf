@@ -1,4 +1,4 @@
-PyMuPDF==1.24.6
+PyMuPDF==1.24.11
 markdown-it-py==3.0.0
 plantuml==0.3.0
 six==1.17.0
