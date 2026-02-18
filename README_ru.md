@@ -36,11 +36,15 @@ pdf = MarkdownPdf(toc_level=2)
 ```
 
 Добавляем в pdf первую секцию. Заголовок не включаем в оглавление.
+После добавления секции в pdf свойство `page_count` у секции содержит количество созданных страниц pdf для добавленной секции.
 
 ```python
 from markdown_pdf import Section
 
-pdf.add_section(Section("# Title\n", toc=False))
+section = Section("# Title\n", toc=False)
+assert section.page_count == 0
+pdf.add_section(section)
+assert section.page_count == 1
 ```
 
 Добавляем вторую секцию с внешними и внутренними гипер-ссылками.

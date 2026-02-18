@@ -42,11 +42,15 @@ pdf = MarkdownPdf(toc_level=2, optimize=True)
 ```
 
 Add the first section to the pdf. The title is not included in the table of contents.
+After adding a section to a pdf, the `page_count` property in the section contains the number of pdf pages created for the added section.
 
 ```python
 from markdown_pdf import Section
 
-pdf.add_section(Section("# Title\n", toc=False))
+section = Section("# Title\n", toc=False)
+assert section.page_count == 0
+pdf.add_section(section)
+assert section.page_count == 1
 ```
 
 Add a second section with external and internal hyperlinks.
