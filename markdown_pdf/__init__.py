@@ -76,11 +76,11 @@ class MarkdownPdf:
         self.m_d = (MarkdownIt(mode).enable('table'))  # Enable support for tables
 
         self.optimize = optimize
-
         self.out_file = io.BytesIO()
         self.writer = fitz.DocumentWriter(self.out_file)
         self.page_num = 0
         self.hrefs = []
+        self.sections = []
 
     @staticmethod
     def _recorder(elpos):
@@ -127,6 +127,8 @@ class MarkdownPdf:
             story.element_positions(self._recorder, {"toc": section.toc, "pdfile": self})
             story.draw(device)
             self.writer.end_page()
+
+        self.sections.append(section)
 
         return html
 
