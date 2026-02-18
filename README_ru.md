@@ -95,6 +95,12 @@ css = "table, th, td {border: 1px solid black;}"
 pdf.add_section(Section(text), user_css=css)
 ```
 
+Свойство `sections` кдасса `MarkdownPdf` содержит список секций в том порядке, в котором их добавляли.
+
+```python
+assert len(pdf.sections) > 1
+```
+
 Устанавливаем свойства pdf документа.
 
 ```python

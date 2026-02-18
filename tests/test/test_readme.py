@@ -13,7 +13,10 @@ class TestReadme(TestBase):
         from markdown_pdf import Section, MarkdownPdf
 
         pdf = MarkdownPdf(toc_level=2, optimize=True)
-        pdf.add_section(Section("# Title\n", toc=False))
+        section = Section("# Title\n", toc=False)
+        assert section.page_count == 0
+        pdf.add_section(section)
+        assert section.page_count == 1
 
         text = """# Section with links
 
@@ -42,6 +45,8 @@ class TestReadme(TestBase):
         pdf.meta["author"] = "Vitaly Bogomolov"
 
         pdf.save(self.build("readme.pdf"))
+
+        assert len(pdf.sections) == 5
 
     def test_user_case_1(self):
         """Test user case from discussion."""
