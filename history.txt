@@ -1,3 +1,5 @@
+* For Python 3.8 PyMuPDF version changed from 1.24.6 to 1.24.11.
+
 18.02.2026 ver.1.13.1
 ---------------------
 
