@@ -1,3 +1,7 @@
+"""Call:
+
+python makepdf.py input.md output.pdf
+"""
 import sys
 from markdown_pdf import MarkdownPdf, Section
 
