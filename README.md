@@ -219,10 +219,12 @@ In the created file `plantuml.pdf`, you will see the following result:
 
 You can find a more detailed description of the plugins [here](plugins.md).
 
-## Example
+## Command Line Interface script
 
-As an example, you can download the [pdf file](examples/markdown_pdf.pdf) created from this md file.
+As an example, you can download the [pdf file](examples/markdown_pdf.pdf) created from this README.
 This [Python script](makepdf.py) was used to create the PDF file.
+
+You can create your own CLI script, tailored to your needs, using this script as a starting point.
 
 ## Development
 
