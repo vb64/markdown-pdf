@@ -1,3 +1,8 @@
+28.05.2026 ver.1.13.2
+---------------------
+
+* Relax markdown-it-py pin: keep ==3.0.0 on Python <3.10, allow >=4.0.0 on Python >=3.10.
+
 * For Python 3.8 PyMuPDF version changed from 1.24.6 to 1.24.11.
 
 * For Python 3.9 use tests with PyMuPDF version 1.26.5.
