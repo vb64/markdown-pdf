@@ -3,7 +3,11 @@ import io
 import typing
 import pathlib
 
-import fitz
+try:
+    import pymupdf as fitz
+except ImportError:  # pragma: no cover
+    import fitz
+
 from markdown_it import MarkdownIt
 from pymupdf import (
   _as_pdf_document, mupdf, JM_embedded_clean, JM_ensure_identity, JM_new_output_fileptr, ASSERT_PDF, Rect,
