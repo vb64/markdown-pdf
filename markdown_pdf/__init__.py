@@ -40,6 +40,8 @@ class Section:
             self.rect = fitz.paper_rect(paper_size)
         elif isinstance(paper_size, (list, tuple)):
             # Other paper sizes are in pt, so need to times mm by 2.835.
+            if len(paper_size) != 2:
+                raise TypeError("paper_size as 'tuple' or 'list' must contain exactly 2 elements (width, height)")
             width, height = paper_size
             self.rect = Rect(0.0, 0.0, (width * MM_2_PT), (height * MM_2_PT))
         else:
