@@ -33,12 +33,12 @@ pip install markdown-pdf
 
 ## Usage
 
-Create a compressed pdf with TOC (bookmarks) from headings up to level 2.
+Create a compressed pdf with TOC (bookmarks) from headings up to level 3.
 
 ```python
 from markdown_pdf import MarkdownPdf
 
-pdf = MarkdownPdf(toc_level=2, optimize=True)
+pdf = MarkdownPdf(toc_level=3, optimize=True)
 ```
 
 Add the first section to the pdf. The title is not included in the table of contents.
