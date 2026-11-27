@@ -1,14 +1,11 @@
-"""
-Reproducibility tests.
+"""Reproducibility tests.
 
-Is it possible to create bit-by-bit identical pdfs from the same markdown
-input?
+Is it possible to create bit-by-bit identical pdfs from the same markdown input?
 
 make test T=test_reproducible.py
-
 """
-
 from . import TestBase
+
 
 class TestReproducibility(TestBase):
     """Reproducibility tests."""
