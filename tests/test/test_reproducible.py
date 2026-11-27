@@ -38,9 +38,12 @@ class TestReproducibility(TestBase):
         pdf.save(p1, no_new_id=True)
         pdf.save(p2, no_new_id=True)
 
-        digest_1 = sha256_file(p1)
-        digest_2 = sha256_file(p1)
-        assert digest_1 == digest_2
+        assert sha256_file(p1) == sha256_file(p2)
+
+        pdf.save(p1, no_new_id=False)
+        pdf.save(p2, no_new_id=False)
+
+        assert sha256_file(p1) != sha256_file(p2)
 
         pdf.optimize = True
         with pytest.raises(ValueError) as err:
