@@ -1,5 +1,7 @@
 """Reproducibility tests.
 
+Is it possible to create bit-by-bit identical pdfs from the same markdown input?
+
 make test T=test_reproducible.py
 """
 import hashlib
@@ -13,6 +15,7 @@ def sha256_file(path: str) -> str:
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
+
     return h.hexdigest()
 
 
