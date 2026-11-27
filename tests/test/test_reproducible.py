@@ -4,7 +4,18 @@ Is it possible to create bit-by-bit identical pdfs from the same markdown input?
 
 make test T=test_reproducible.py
 """
+import hashlib
+import pytest
 from . import TestBase
+
+
+def sha256_file(path: str) -> str:
+    """Implement hashlib.file_digest for Python ver < 3.11."""
+    h = hashlib.new("sha256")
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 class TestReproducibility(TestBase):
@@ -12,7 +23,6 @@ class TestReproducibility(TestBase):
 
     def test_reproducibility(self):
         """Check bit-by-bit identical pdf saves from same markdown input."""
-        import hashlib
         from markdown_pdf import MarkdownPdf, Section
 
         p1 = self.build("hello1.pdf")
@@ -27,11 +37,11 @@ class TestReproducibility(TestBase):
         pdf.save(p1, no_new_id=True)
         pdf.save(p2, no_new_id=True)
 
-        with open(p1, "rb") as f, open(p2, "rb") as ff:
-            digest_f = hashlib.file_digest(f, "sha256")
-            digest_ff = hashlib.file_digest(ff, "sha256")
-            self.assertEqual(digest_f.hexdigest(), digest_ff.hexdigest())
+        digest_1 = sha256_file(p1)
+        digest_2 = sha256_file(p1)
+        assert digest_1 == digest_2
 
         pdf.optimize = True
-        with self.assertRaises(ValueError):
+        with pytest.raises(ValueError) as err:
             pdf.save(p1, no_new_id=True)
+        assert 'Cannot pass kwargs with optimize' in str(err.value)
