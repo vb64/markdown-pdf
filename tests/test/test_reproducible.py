@@ -1,7 +1,5 @@
 """Reproducibility tests.
 
-Is it possible to create bit-by-bit identical pdfs from the same markdown input?
-
 make test T=test_reproducible.py
 """
 import hashlib
