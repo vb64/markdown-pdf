@@ -147,13 +147,15 @@ class MarkdownPdf:
 
         return doc
 
-    def save(self, file_name: typing.Union[str, pathlib.Path]) -> None:
+    def save(self, file_name: typing.Union[str, pathlib.Path], **kwargs) -> None:
         """Save pdf to file."""
         doc = self._make_doc()
         if self.optimize:
+            if kwargs:
+                raise ValueError("Cannot pass kwargs with optimize = True")
             doc.ez_save(file_name)
         else:
-            doc.save(file_name)
+            doc.save(file_name, **kwargs)
         doc.close()
         self.temp_files.clean()
 
