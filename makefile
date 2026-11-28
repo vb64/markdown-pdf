@@ -1,9 +1,9 @@
 .PHONY: all setup static db example superuser
 # make tests >debug.log 2>&1
 ifeq ($(OS),Windows_NT)
-PYTHON = venv/Scripts/python.exe
-PTEST = venv/Scripts/pytest.exe
-COVERAGE = venv/Scripts/coverage.exe
+PYTHON = "venv/Scripts/python.exe"
+PTEST = "venv/Scripts/pytest.exe"
+COVERAGE = "venv/Scripts/coverage.exe"
 else
 PYTHON = ./venv/bin/python
 PTEST = ./venv/bin/pytest
