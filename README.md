@@ -162,7 +162,7 @@ So binary PDF files created from identical Markdown content will not be identica
 You can override this behavior by specifying the `no_new_id=True` option in the `save` method.
 
 ```python
-pdf.save("guide.pdf, no_new_id=True")
+pdf.save("guide.pdf", no_new_id=True)
 ```
 
 In this case, the PDF files created from the same Markdown content will be identical at the binary level.

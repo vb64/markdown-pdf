@@ -156,7 +156,7 @@ assert out.getbuffer().nbytes > 0
 Вы можете переопределить это поведение, указав опцию `no_new_id=True` в методе `save`.
 
 ```python
-pdf.save("guide.pdf, no_new_id=True")
+pdf.save("guide.pdf", no_new_id=True)
 ```
 
 В этом случае создаваемые из одинакового markdown содержимого pdf-файлы будут идентичны на бинарном уровне.
