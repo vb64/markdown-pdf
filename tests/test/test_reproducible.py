@@ -5,7 +5,6 @@ Is it possible to create bit-by-bit identical pdfs from the same markdown input?
 make test T=test_reproducible.py
 """
 import hashlib
-import pytest
 from . import TestBase
 
 
@@ -35,17 +34,23 @@ class TestReproducibility(TestBase):
         pdf.meta["modDate"] = ""
         txt = "Hello World"
         pdf.add_section(Section(txt))
+
+        assert not pdf.optimize
+
         pdf.save(p1, no_new_id=True)
         pdf.save(p2, no_new_id=True)
-
         assert sha256_file(p1) == sha256_file(p2)
 
         pdf.save(p1, no_new_id=False)
         pdf.save(p2, no_new_id=False)
-
         assert sha256_file(p1) != sha256_file(p2)
 
         pdf.optimize = True
-        with pytest.raises(ValueError) as err:
-            pdf.save(p1, no_new_id=True)
-        assert 'Cannot pass kwargs with optimize' in str(err.value)
+
+        pdf.save(p1, no_new_id=True)
+        pdf.save(p2, no_new_id=True)
+        assert sha256_file(p1) == sha256_file(p2)
+
+        pdf.save(p1, no_new_id=False)
+        pdf.save(p2, no_new_id=False)
+        assert sha256_file(p1) != sha256_file(p2)

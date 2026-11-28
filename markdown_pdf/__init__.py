@@ -151,9 +151,7 @@ class MarkdownPdf:
         """Save pdf to file."""
         doc = self._make_doc()
         if self.optimize:
-            if kwargs:
-                raise ValueError("Cannot pass kwargs with optimize = True")
-            doc.ez_save(file_name)
+            doc.ez_save(file_name, **kwargs)
         else:
             doc.save(file_name, **kwargs)
         doc.close()
